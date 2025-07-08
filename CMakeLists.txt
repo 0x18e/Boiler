@@ -28,7 +28,7 @@ message(STATUS "Linking libassimp.so")
 target_link_libraries(Boiler PRIVATE glfw libassimp.so)
 else()
 message(STATUS "Linking assimp-vc143-mtd & openal32.lib")
-target_link_libraries(Boiler PRIVATE glfw3 assimp-vc143-mtd openal32)
+target_link_libraries(Boiler PRIVATE glfw3 assimp-vc143-mtd OpenAL32)
 endif()
 
 
