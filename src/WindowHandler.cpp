@@ -56,7 +56,6 @@ bool WindowHandler::ChangeResolution(int x, int y) {
 
 WindowHandler::~WindowHandler() {
     LOG("Cleaning up window");
-	LOG(m_pWindow);
     if (this->m_pWindow != nullptr) {
         glfwDestroyWindow(this->m_pWindow);
 		this->m_pWindow = nullptr;
