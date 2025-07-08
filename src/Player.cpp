@@ -48,7 +48,7 @@ void Player::Move() {
 		}
 		else {
 			LOG("zooming in");
-			this->m_fFov -= 0.5f;
+			this->m_fFov -= 0.9f;
 		}
 	}
 	else {
@@ -56,7 +56,7 @@ void Player::Move() {
 			this->m_fFov = 75.0f;
 		}
 		else {
-			this->m_fFov += 0.5f;
+			this->m_fFov += 0.9f;
 		}
 	}
 
@@ -75,11 +75,14 @@ void Player::Move() {
 		this->m_Position.y = 0.0f;
 	}
 	else {
-		LOG(this->m_Velocity.y);
-		this->m_Velocity.y -= 0.15f;
+		
 		if (this->m_Position.y <= 0.0f) {
 			this->m_Position.y = 0.0f;
+			this->m_Velocity.y = 0.0f;
 			this->m_bIsGrounded = true;
+		}
+		else {
+			this->m_Velocity.y -= 0.15f;
 		}
 	}
 	
