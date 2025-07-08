@@ -57,17 +57,16 @@ bool Engine::Initialize() {
 
 // TODO: USE camelCase
 void Engine::Run() {	
-	// Initialization
-
 	while (!glfwWindowShouldClose(WindowHandler::Get().GetWindow())) { // make this look nicer, put it into a function in the handler
 		// input first!
 		InputHandler::Get().Update();
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(1.0f, 0.0f, 0.0f, 1.0f); // red
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // red
 
 		this->m_Logic.Update();
 		this->m_Logic.Render();
+
 		
 		glfwSwapBuffers(WindowHandler::Get().GetWindow());
 	}

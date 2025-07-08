@@ -4,7 +4,6 @@
 #include "openal/al.h"
 #include "openal/alc.h"
 
-
 /*TODO
 * REWRITE THE ENTIRE Model.h class, this has a lot of weird code copied from opengl
 */
@@ -28,6 +27,4 @@ public:
 private:
 	Logic m_Logic;
 	float dt; // Handling delta time, about time I added this
-
-	
 };
