@@ -60,6 +60,12 @@ void Player::Move() {
 		}
 	}
 
+	if (InputHandler::Get().IsPressed(GLFW_KEY_E)) {
+		AudioHandler::Get().PlaySound("wpn_denyselect");
+	}
+	if (InputHandler::Get().IsPressed(GLFW_KEY_R)) {
+		AudioHandler::Get().PlaySound("wpn_hudoff");
+	}
 
 	/*
 	if (InputHandler::Get().IsPressed(GLFW_KEY_LEFT_CONTROL)) {

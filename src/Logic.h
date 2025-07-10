@@ -11,6 +11,8 @@
 #include "InputHandler.h"
 #include "Player.h"
 #include "ResourceHandler.h"
+#include "AudioHandler.h"
+
 /// <summary>
 /// All videogame logic should be handled here
 /// As a way to separate the engine from the 

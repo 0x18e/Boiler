@@ -3,11 +3,12 @@
 #include "openal/alc.h"
 #include <unordered_map>
 #include <string>
+#include "tools.h"
 #include<iostream>
-
+#include <fstream>
 #define NUM_BUFFERS 3
 #define BUFFER_SIZE 4096
-#define NUM_SOURCES 4
+#define NUM_SOURCES 6
 
 struct WAVFile {
     char riff[4];
@@ -21,24 +22,12 @@ struct WAVFile {
     uint32_t byteRate;
     uint16_t blockAlign;
     uint16_t bitsPerSample;
+    uint16_t dataSize;
+    ALenum format; // TODO: replace audioFormat with this or vice versa.
+    std::vector<uint8_t> data;
 };
 
-class AudioHandler {
-	// Notes, how would this need to be change to accomodate for level changes? remove old cached audio
-public:
-    AudioHandler();
-    ~AudioHandler();
-    Sound* GetSound(std::string sound_name);
-private:
-    ALCcontext* m_pContext;
-    ALCdevice* m_pDevice;
-    ALuint m_Buffers[NUM_BUFFERS];
-    ALuint m_Sources[NUM_SOURCES];
 
-	Sound LoadSound();
-	WAVFile* LoadWAV();
-    std::unordered_map<std::string, std::unique_ptr<Sound>> m_Sounds; // sound container
-};
 
 class Sound {
 	// what should a single sound have?
@@ -48,7 +37,33 @@ public:
 	void Play();
 	void Stop();
 	void Pause();
-    WAVFile m_Data;
+
 private:
-    ALuint source; // dont think i need this
+
 };
+
+class AudioHandler {
+    // Notes, how would this need to be change to accomodate for level changes? remove old cached audio
+public:
+    static AudioHandler& Get() {
+        return m_Instance;
+    }
+    bool Init();
+    AudioHandler();
+    ~AudioHandler();
+    Sound* GetSound(std::string sound_name);
+    void PlaySound(std::string name);
+private:
+    static AudioHandler m_Instance;
+    ALCcontext* m_pContext;
+    ALCdevice* m_pDevice;
+    ALuint m_Buffers[NUM_BUFFERS];
+    ALuint m_Sources[NUM_SOURCES];
+    // Keeps track of allocated buffer count
+    int m_iBufferCount;
+    Sound LoadSound(std::string path, std::string name);
+    WAVFile LoadWAV(std::string path);
+    std::unordered_map<std::string, std::unique_ptr<Sound>> m_Sounds; // sound container
+    std::unordered_map<std::string, ALuint*> m_SrcMap;
+};
+void DisplayALError(std::string msg, ALenum error);

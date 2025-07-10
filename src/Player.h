@@ -1,6 +1,7 @@
 #pragma once
 #include "tools.h"
 #include "Camera.h"
+#include "AudioHandler.h"
 
 /* Notes & questions for not tired me
 * Determine whether its better to just pack the forward vector into the camera state or just calculate when needed

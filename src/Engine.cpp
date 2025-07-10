@@ -28,6 +28,11 @@ bool Engine::Initialize() {
 		return false;
 	}
 	
+	if (!AudioHandler::Get().Init()) {
+		LOG("Failed to initialize audio handler");
+		return false;
+	}
+
 	// Load opengl functions from glad
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		// GLAD initialization failed
