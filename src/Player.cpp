@@ -61,10 +61,10 @@ void Player::Move() {
 	}
 
 	if (InputHandler::Get().IsPressed(GLFW_KEY_E)) {
-		AudioHandler::Get().PlaySound("wpn_denyselect");
+		//AudioHandler::Get().PlaySound("wpn_denyselect");
 	}
 	if (InputHandler::Get().IsPressed(GLFW_KEY_R)) {
-		AudioHandler::Get().PlaySound("wpn_hudoff");
+		//AudioHandler::Get().PlaySound("wpn_hudoff");
 	}
 
 	/*

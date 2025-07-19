@@ -7,7 +7,6 @@
 // use public, protected, private conventions.
 
 int main() {
-
 	Engine engine;
 	engine.Run();
 
