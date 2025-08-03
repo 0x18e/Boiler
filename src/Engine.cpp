@@ -28,7 +28,14 @@ bool Engine::Initialize() {
 		return false;
 	}
 	
-
+	if (!AudioEngine::Get().Init()) {
+		LOG("Failed to initialize audio handler");
+		return false;
+	}
+	// dont load audio here, this is kinda stupid, load it in a level handler..
+	// temp code.
+	
+	
 
 	// Load opengl functions from glad
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -53,6 +60,7 @@ bool Engine::Initialize() {
 	
 	ResourceHandler::Get().Precache();
 	LOG("Finished initializing engine");
+	
 	return true;
 }
 

@@ -3,6 +3,7 @@
 #include "Logic.h"
 #include "openal/al.h"
 #include "openal/alc.h"
+#include "AudioEngine.h"
 
 /*TODO
 * REWRITE THE ENTIRE Model.h class, this has a lot of weird code copied from opengl

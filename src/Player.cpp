@@ -59,10 +59,7 @@ void Player::Move() {
 			this->m_fFov += 0.9f;
 		}
 	}
-
-	if (InputHandler::Get().IsPressed(GLFW_KEY_E)) {
-		//AudioHandler::Get().PlaySound("wpn_denyselect");
-	}
+	
 	if (InputHandler::Get().IsPressed(GLFW_KEY_R)) {
 		//AudioHandler::Get().PlaySound("wpn_hudoff");
 	}
@@ -88,11 +85,13 @@ void Player::Move() {
 			this->m_bIsGrounded = true;
 		}
 		else {
-			this->m_Velocity.y -= 0.15f;
+			LOG("subbing");
+			this->m_Velocity.y -= 0.f;
 		}
 	}
 	
-	m_Velocity *= 0.9f;
+	m_Velocity.x *= 0.9f;
+	m_Velocity.z *= 0.9f;
 }
 
 void Player::Spawn() {
