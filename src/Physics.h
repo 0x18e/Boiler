@@ -18,5 +18,5 @@ class PhysicsWorld {
 public:
 	void Integrate(); 
 private:
-	std::vector<PhysicsObject&> m_Objects;
+	//std::vector<PhysicsObject&> m_Objects;
 };

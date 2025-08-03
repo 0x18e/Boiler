@@ -9,10 +9,10 @@ void PhysicsObject::Init(glm::vec3 initial_position) {
 
 // PhysicsWorld
 void PhysicsWorld::Integrate() {
-	for (auto& object : this->m_Objects) {	  // temporary dt
+	/*for (auto& object : this->m_Objects) {	  // temporary dt
 		object.GetVelocity() += object.GetAccel() * (1.0f / 60.0f);
 		object.GetPosition() += object.GetVelocity() * (1.0f / 60.0f);
-	}
+	}*/
 }
 
 

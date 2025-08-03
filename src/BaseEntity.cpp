@@ -1,13 +1,13 @@
 #include "BaseEntity.h"
 
-BaseEntity::Spawn() {
+void BaseEntity::Spawn() {
 
 }
 
-BaseEntity::Update() {
+void BaseEntity::Update() {
 
 }
 
-BaseEntity::Destroy() {
+void BaseEntity::Destroy() {
 
 }
