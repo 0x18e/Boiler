@@ -8,4 +8,5 @@
 /out/build/x64-Debug
 /src/compile_commands.json
 notes.txt
+.cache
 cloc-2.06.exe

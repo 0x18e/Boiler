@@ -16,7 +16,8 @@ private:
 
 class PhysicsWorld {
 public:
-	void Integrate(); 
+	void Integrate();
+	void AddObject(PhysicsObject& object);
 private:
-	//std::vector<PhysicsObject&> m_Objects;
+	std::vector<PhysicsObject*> m_Objects; // I refuse to use smart pointers for this.
 };

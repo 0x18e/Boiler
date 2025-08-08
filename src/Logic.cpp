@@ -12,6 +12,7 @@ Logic::~Logic() {
 }
 
 void Logic::Render() {
+	/*
 	Model* ourModel = ResourceHandler::Get().GetModel("obj_debug");
 	Shader* ourShader = ResourceHandler::Get().GetShader("base_shader");
 	ourShader->use();
@@ -29,12 +30,13 @@ void Logic::Render() {
 	model = glm::rotate(model, (float)glfwGetTime() * glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	ourShader->SetMat4("model", model);
 	ourModel->Draw(*ourShader);
+	*/
 }
 
 void Logic::Update() {
 	// update on set tick	
 	player->Move();
 
-	
+	this->ent.Update();	
 	player->UpdateCamera();
 }

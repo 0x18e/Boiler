@@ -11,7 +11,7 @@
 #include "InputHandler.h"
 #include "Player.h"
 #include "ResourceHandler.h"
-
+#include "BaseEntity.h"
 /// <summary>
 /// All videogame logic should be handled here
 /// As a way to separate the engine from the 
@@ -30,6 +30,7 @@ public:
 	void Render();
 
 private:
+	BaseEntity ent;
 	float m_fDeltaTime; // Might be static in order to track everywhere else or global...
 	std::unique_ptr<Player> player;
 };
