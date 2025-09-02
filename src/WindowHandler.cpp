@@ -4,6 +4,7 @@
 
 WindowHandler WindowHandler::m_WindowInstance;
 void FrameBufferSizeCallback(GLFWwindow* window, int x, int y) {
+	
 	glViewport(0, 0, x, y);
 }
 
@@ -21,23 +22,26 @@ bool WindowHandler::CursorStatus() {
 
 bool WindowHandler::CreateWindow(int width, int height, std::string name) {
 	LOG("Creating Window");
+	glfwWindowHint(GLFW_RESIZABLE, true);
+
 	this->m_pWindow = glfwCreateWindow(width, height,
 		name.c_str(),
 		nullptr,
 		nullptr);
-	
 	if (!m_pWindow) {
 		LOG("Could not create window");
 		return false;
 	}
-	
 	glfwMakeContextCurrent(this->m_pWindow);
-	glfwSetFramebufferSizeCallback(this->m_pWindow, FrameBufferSizeCallback);
+	glfwSetFramebufferSizeCallback(this->m_pWindow, FrameBufferSizeCallback);	
+	/*
 	glfwSetWindowSizeLimits(this->m_pWindow, this->m_nWindowWidth,
 		this->m_nWindowHeight,
 		this->m_nWindowWidth,
 		this->m_nWindowHeight
 	);
+
+	*/
 	//glfwSetInputMode(this->m_pWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	return true;
 }

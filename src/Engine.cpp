@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Model.h"
 
 Engine::Engine() {
 	this->Initialize();
@@ -18,7 +19,7 @@ bool Engine::Initialize() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
 	// Do window stuff here
-	if (!WindowHandler::Get().Init(1920, 1080)) {
+	if (!WindowHandler::Get().Init(1280, 720)) {
 		LOG("Failed to initialize window");
 		return false;
 	}
@@ -43,11 +44,15 @@ bool Engine::Initialize() {
 		LOG("Failed to initialize glad functions");
 		return false;
 	}
+	// Initial window resolution change cause linux is weird
+	#ifdef linux
+	// This issue happens because i have my monitor scaled up by 130%, so it multiplies by 1.30%
+	glViewport(0, 0, WindowHandler::Get().GetWidth() * 1.30, WindowHandler::Get().GetHeight() * 1.30);
+	#endif
 	// Certain textures seem to not be happy with this enabled, the base backpack from ogl
 	// works fine and it doesnt even complain about it when this is enabled.
 	// Any other texture seems to really disagree and it really wants this off in order to work. 
-	//stbi_set_flip_vertically_on_load(true);
-	
+	//stbi_set_flip_vertically_on_load(true);	
 	glfwSetCursorPosCallback(WindowHandler::Get().GetWindow(), InputHandler::Get().MouseCallback);
 	
 	glEnable(GL_DEPTH_TEST);
@@ -60,7 +65,11 @@ bool Engine::Initialize() {
 	
 	ResourceHandler::Get().Precache();
 	LOG("Finished initializing engine");
-	
+	if (!this->m_Logic.Init()){
+		LOG("Failed to initialize game logic");
+		return false;
+	}
+
 	return true;
 }
 
@@ -72,7 +81,7 @@ void Engine::Run() {
 		InputHandler::Get().Update();
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // red
+		glClearColor(1.0, 1.0f, 1.0f, 1.0f); // red
 
 		this->m_Logic.Update();
 		this->m_Logic.Render();

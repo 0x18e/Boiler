@@ -8,7 +8,7 @@
 class WindowHandler {
 
 public:
-	bool Init(int width = 1280, int height = 800, std::string name = "Lorem Ipsum");
+	bool Init(int width = 1920, int height = 1080, std::string name = "Lorem Ipsum");
 	static WindowHandler& Get() {
 		return m_WindowInstance;
 	}
@@ -28,7 +28,7 @@ private:
 
 	bool m_bShowCursor;
 	static WindowHandler m_WindowInstance;
-	WindowHandler() : m_nWindowHeight(800), m_nWindowWidth(1280), m_pWindow(nullptr), m_bShowCursor(true) {
+	WindowHandler() : m_nWindowHeight(1080), m_nWindowWidth(1920), m_pWindow(nullptr), m_bShowCursor(true) {
 		
 	}
 

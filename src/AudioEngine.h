@@ -4,7 +4,7 @@
 #include "dr_wav.h"
 #include "tools.h"
 #include <vector>
-
+#include<memory>
 class SoundBuffer {
 public:
 	SoundBuffer() : m_Buffer(0) {};

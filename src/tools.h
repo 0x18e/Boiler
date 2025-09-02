@@ -1,7 +1,7 @@
 #pragma once
 #include "glm/ext/matrix_float4x4.hpp"
 #include<iostream>
-
+#include<memory>
 //define debug macro
 #define DEBUG 1
 #ifdef DEBUG
@@ -9,7 +9,7 @@
 #else
 #define LOG(x)
 #endif
-#define VSYNC 1
+#define VSYNC 0
 
 
 // Should be the default error box to exist

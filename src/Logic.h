@@ -25,7 +25,8 @@ class Logic {
 public:
 	Logic();
 	~Logic();
-
+	
+	bool Init();
 	void Update();
 	void Render();
 
