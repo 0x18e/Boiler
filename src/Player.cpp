@@ -10,16 +10,22 @@ Player::~Player() {
 }
 //TODO work on player movement, aceleration, velocity, position gets updated, so does camera position as well.
 void Player::Move() {
-	
+	glm::vec3 flatForward = glm::vec3(
+		m_PlayerCameraState.forward.x,
+		0.0f,
+		m_PlayerCameraState.forward.z
+	);
 	// as bad as this is i want to keep it at a point where i can just delete it all later.
 	if (InputHandler::Get().IsPressed(GLFW_KEY_W)) {
 		// move forward
 		//this->m_CameraPosition += this->m_CameraSpeed * m_CameraFront;
-		this->m_Velocity += this->m_fSpeed * this->m_PlayerCameraState.forward;
+		this->m_Velocity += m_fSpeed * glm::normalize(flatForward);
+		//this->m_Velocity += this->m_fSpeed * this->m_PlayerCameraState.forward;
 	}
 	if (InputHandler::Get().IsPressed(GLFW_KEY_S)) {
-		// move back
-		this->m_Velocity -= this->m_fSpeed * this->m_PlayerCameraState.forward;
+		//move backwards without having to ascend when looking down and walking backwards
+		
+		this->m_Velocity -= this->m_fSpeed * glm::normalize(flatForward);//this->m_PlayerCameraState.forward;
 	}
 	if (InputHandler::Get().IsPressed(GLFW_KEY_D)) {
 		// move right
@@ -32,13 +38,14 @@ void Player::Move() {
 			glm::cross(this->m_PlayerCameraState.forward, this->m_Camera.GetUpAxis())) * this->m_fSpeed;
 	}
 
-	
+
+
 	if (InputHandler::Get().IsPressed(GLFW_KEY_SPACE)) {
 		// go up
 		//this->m_CameraPosition.y += m_CameraSpeed;
 		// impact velocity!!
-		m_bIsGrounded = false;
-		this->m_Velocity.y = 50.0f;
+
+		this->Jump();
 	}
 
 	if (InputHandler::Get().IsPressed(GLFW_KEY_F)) {
@@ -71,29 +78,29 @@ void Player::Move() {
 	}
 	*/
 	//this->m_CameraPosition.y = 0.0f;
-	
+	const float gravity = 0.3f;   // per frame impulse (matches your old code)
+
+	// Apply gravity if not grounded
+	if (!m_bIsGrounded) {
+		m_Velocity.y -= gravity;
+	}
 	this->m_Position += m_Velocity * 1.0f / 144.0f;
-	
-	if (m_bIsGrounded) {
-		this->m_Position.y = 0.0f;
+	if (m_Position.y <= 0.0f) {
+		m_Position.y = 0.0f;
+		m_Velocity.y = 0.0f;
+		m_bIsGrounded = true;
 	}
-	else {
-		
-		if (this->m_Position.y <= 0.0f) {
-			this->m_Position.y = 0.0f;
-			this->m_Velocity.y = 0.0f;
-			this->m_bIsGrounded = true;
-		}
-		else {
-			LOG("subbing");
-			this->m_Velocity.y -= 0.f;
-		}
-	}
-	
+	// friction
 	m_Velocity.x *= 0.9f;
 	m_Velocity.z *= 0.9f;
 }
+void Player::Jump() {
 
+	// this should be an impulse jump
+	m_bIsGrounded = false;
+	this->m_Velocity.y = 10.0f;
+	
+}
 void Player::Spawn() {
 	this->m_fFov = 75.0f;
 	this->m_fMass = 49.0f;
@@ -121,7 +128,6 @@ glm::vec3 Player::GetForwardVector() {
 	direction.z = sin(glm::radians(InputHandler::Get().GetYaw())) * cos(glm::radians(InputHandler::Get().GetPitch()));
 	return glm::normalize(direction);
 }
-
 
 CameraState Player::BuildCamera() {
 	CameraState state;

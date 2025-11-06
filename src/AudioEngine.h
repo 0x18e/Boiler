@@ -29,7 +29,6 @@ private:
 	std::shared_ptr<SoundBuffer> m_BufferRef;
 };
 
-
 class AudioEngine {
 public:
 	static AudioEngine& Get() {

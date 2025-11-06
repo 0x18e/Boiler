@@ -6,7 +6,7 @@ void ResourceHandler::Precache() {
 	// load all resources here.
 	// Models
 	this->m_Models["obj_debug"] = std::make_unique<Model>("assets/models/kiwi/kiwi.obj");
-
+	this->m_Models["obj_skull"] = std::make_unique<Model>("assets/models/skull/12140_Skull_v3_L2.obj");
 	// Shaders
 	this->m_Shaders["base_shader"] = std::make_unique<Shader>("assets/shaders/model_loading.vs", "assets/shaders/model_loading.fs");
 }
