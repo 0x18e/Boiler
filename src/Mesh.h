@@ -31,22 +31,6 @@ struct Texture {
     std::string type;
     std::string path;
 };
-/*
-// Structs use sequential memory.
-// Use better naming conventions, really nit picking here. Stick to Hungarian
-struct Vertex {
-    glm::vec3 position;
-    glm::vec3 normal;
-    //glm::vec3 colors;
-    glm::vec2 texture_coordinates;
-};
-
-// This needs to change later on
-struct Texture {
-    unsigned int ID;
-    std::string type;
-};
-*/
 
 class Mesh {
   public:
@@ -63,5 +47,4 @@ private:
     unsigned int m_texture;
     unsigned char* m_pszData;
     int m_nWidth, m_nHeight, m_nChannelCount;
-
 };

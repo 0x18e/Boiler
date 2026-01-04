@@ -9,7 +9,7 @@
 * REWRITE THE ENTIRE Model.h class, this has a lot of weird code copied from opengl
 */
 class GlobalVars {
-
+	
 };
 
 class Engine {
@@ -28,4 +28,9 @@ public:
 private:
 	Logic m_Logic;
 	float dt; // Handling delta time, about time I added this
+	float current_Time;
+	float t; // engine time
+	// change from 0.01 to diff amount later on because this might be too fast
+	const float fdt = 0.01; // fixed delta_time;
+	float accumulator;
 };

@@ -2,6 +2,7 @@
 #include "tools.h"
 #include<vector>
 
+// convert physics object to be a struct
 class PhysicsObject {
 public:
 	void Init(glm::vec3 initial_position);

@@ -9,6 +9,6 @@
 int main() {
 	Engine engine;
 	engine.Run();
-
+	engine.Exit();
 	return 0;
 }

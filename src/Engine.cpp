@@ -6,11 +6,15 @@ Engine::Engine() {
 }
 
 Engine::~Engine() {
-	this->Exit();
+	
 }
 
 bool Engine::Initialize() {
 
+	t = 0.0f;
+	dt = 0.0f;
+	accumulator = 0.0f;
+	current_Time = glfwGetTime();
 	if (!glfwInit()) {
 		LOG("Could not init glfw");
 	}
@@ -78,19 +82,33 @@ bool Engine::Initialize() {
 void Engine::Run() {	
 	while (!glfwWindowShouldClose(WindowHandler::Get().GetWindow())) { // make this look nicer, put it into a function in the handler
 		// input first!
+		float new_Time = glfwGetTime();
+		float frame_Time = new_Time - current_Time;
+		current_Time = new_Time;
+
+		accumulator += frame_Time;
 		InputHandler::Get().Update();
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(1.0, 1.0f, 1.0f, 1.0f); // red
+		// freeing the physics
+		while (accumulator >= fdt) {
+			this->m_Logic.Update(fdt);
+			
+			accumulator -= fdt;
+			t += fdt;
+		}
 
-		this->m_Logic.Update();
+		// a m_Logic.Integrate() function should exist based on time accumulation for fixed
+		// Physics timesteps
+
 		this->m_Logic.Render();
-
-		
 		glfwSwapBuffers(WindowHandler::Get().GetWindow());
 	}
 }
 
 void Engine::Exit() {
-	
+	// Do all cleanup here
+	LOG("Cleaning up engine");
+	ResourceHandler::Get().Cleanup();
 }

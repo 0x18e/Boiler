@@ -42,6 +42,11 @@ Shader* ResourceHandler::GetShader(const std::string& name){
 	return nullptr;
 }
 
+void ResourceHandler::Cleanup() {
+	for (auto& pair : this->m_Shaders) {
+		pair.second.get()->Die(); // clean all shaders
+	}
+}
 ResourceHandler::~ResourceHandler() {
 	// RAII from unique_ptr resources
 }

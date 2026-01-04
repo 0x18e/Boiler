@@ -8,8 +8,17 @@ Player::Player() {
 Player::~Player() {
 
 }
+void Player::Spawn() {
+	this->m_fFov = 75.0f;
+	this->m_fMass = 49.0f;
+	this->m_fSpeed = 5.0f;
+	this->m_Position = glm::vec3(0.0f, 0.0f, 3.0f);
+	this->m_Velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+	this->m_bIsGrounded = true;
+}
+
 //TODO work on player movement, aceleration, velocity, position gets updated, so does camera position as well.
-void Player::Move() {
+void Player::Move(const float& dt) {
 	glm::vec3 flatForward = glm::vec3(
 		m_PlayerCameraState.forward.x,
 		0.0f,
@@ -42,9 +51,7 @@ void Player::Move() {
 
 	if (InputHandler::Get().IsPressed(GLFW_KEY_SPACE)) {
 		// go up
-		//this->m_CameraPosition.y += m_CameraSpeed;
 		// impact velocity!!
-
 		this->Jump();
 	}
 
@@ -78,13 +85,13 @@ void Player::Move() {
 	}
 	*/
 	//this->m_CameraPosition.y = 0.0f;
-	const float gravity = 0.3f;   // per frame impulse (matches your old code)
+	const float gravity = 0.6f;   // per frame impulse (matches your old code)
 
 	// Apply gravity if not grounded
 	if (!m_bIsGrounded) {
 		m_Velocity.y -= gravity;
 	}
-	this->m_Position += m_Velocity * 1.0f / 144.0f;
+	this->m_Position += m_Velocity * dt;
 	if (m_Position.y <= 0.0f) {
 		m_Position.y = 0.0f;
 		m_Velocity.y = 0.0f;
@@ -100,14 +107,6 @@ void Player::Jump() {
 	m_bIsGrounded = false;
 	this->m_Velocity.y = 10.0f;
 	
-}
-void Player::Spawn() {
-	this->m_fFov = 75.0f;
-	this->m_fMass = 49.0f;
-	this->m_fSpeed = 5.0f;
-	this->m_Position = glm::vec3(0.0f, 0.0f, 3.0f);
-	this->m_Velocity = glm::vec3(0.0f, 0.0f, 0.0f);
-	this->m_bIsGrounded = true;
 }
 
 void Player::UpdateCamera() {

@@ -16,6 +16,8 @@ public:
 
 	Model* GetModel(const std::string& name);
 	Shader* GetShader(const std::string& name);
+	
+	void Cleanup();
 	~ResourceHandler();
 	
 protected:

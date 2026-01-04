@@ -15,7 +15,7 @@
 #include "GameObjects.h"
 /// <summary>
 /// All videogame logic should be handled here
-/// As a way to separate the engine from the 
+/// As a way to separate the engine from the logic
 /// </summary>
 class Logic {
 
@@ -28,7 +28,7 @@ public:
 	~Logic();
 	
 	bool Init();
-	void Update();
+	void Update(const float& dt);
 	void Render();
 
 private:

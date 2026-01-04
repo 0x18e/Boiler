@@ -34,11 +34,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 	const char* vert_code_c = vertex_code.c_str();
 	const char* frag_code_c = fragment_code.c_str();
 
-
 	// now to compile the shaders
-
-
-
 	unsigned vertex, fragment;
 
 	int success = 0;
@@ -66,7 +62,6 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 		std::cout << "cant compile fragment shader " << infoLog << std::endl;
 	}
 
-
 	// create shader program
 	ID = glCreateProgram();
 
@@ -83,9 +78,6 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
-
-
-	
 }
 void Shader::use(void) {
 	glUseProgram(this->ID);
@@ -106,3 +98,10 @@ void Shader::SetMat4(const char* name, glm::mat4 matrix) {
 	glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
+void Shader::Die() {
+	if (ID != 0) {
+		LOG("Shader killing");
+		glDeleteShader(ID);
+		LOG("Killed shader");
+	}
+}

@@ -16,7 +16,7 @@ class Player {
 public:
 	Player();
 	~Player();
-	void Move();
+	void Move(const float& dt);
 	void Spawn();
 	void UpdateCamera(); // This should update at the end of our move function
 	glm::mat4& GetViewMatrix();
