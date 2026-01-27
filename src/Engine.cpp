@@ -12,7 +12,7 @@ Engine::~Engine() {
 bool Engine::Initialize() {
 
 	t = 0.0f;
-	dt = 0.0f;
+
 	accumulator = 0.0f;
 	current_Time = glfwGetTime();
 	if (!glfwInit()) {
@@ -90,7 +90,7 @@ void Engine::Run() {
 		InputHandler::Get().Update();
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(1.0, 1.0f, 1.0f, 1.0f); // red
+		glClearColor(1.0, 1.0f, 1.0f, 1.0f);
 		// freeing the physics
 		while (accumulator >= fdt) {
 			this->m_Logic.Update(fdt);
@@ -110,5 +110,6 @@ void Engine::Run() {
 void Engine::Exit() {
 	// Do all cleanup here
 	LOG("Cleaning up engine");
+	AudioEngine::Get().Shutdown();
 	ResourceHandler::Get().Cleanup();
 }
