@@ -18,7 +18,7 @@ void Skull::Spawn() {
     this->m_PhysicsBody.m_Acceleration = glm::vec3(0.0f);
     this->m_PhysicsBody.m_PrevTransform = glm::vec3(0.0f);
     this->m_PhysicsBody.m_Transform = glm::vec3(0.0f);
-    
+    this->m_fMoveSpeed = 5.0f; 
 }
 
 void Skull::Update(const float& dt) { 
@@ -37,7 +37,7 @@ void Skull::Move(const glm::vec3& moveTo, const float& dt) {
     final_pos = moveTo - this->m_PhysicsBody.m_Position;
     this->m_fAngle = atan2(final_pos.x, final_pos.z);
     if (glm::length(final_pos) > 0.0000001){
-        m_PhysicsBody.m_Velocity = glm::normalize(final_pos) * 10.0f;
+        m_PhysicsBody.m_Velocity = glm::normalize(final_pos) * m_fMoveSpeed;
     }
     else{
         m_PhysicsBody.m_Velocity = glm::vec3(0.0f);

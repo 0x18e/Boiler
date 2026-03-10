@@ -11,7 +11,7 @@ Player::~Player() {
 void Player::Spawn() {
 	this->m_fFov = 75.0f;
 	this->m_fMass = 49.0f;
-	this->m_fSpeed = 5.0f;
+	this->m_fSpeed = 15.0f;
 	this->m_Position = glm::vec3(0.0f, 0.0f, 3.0f);
 	this->m_Velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 	this->m_bIsGrounded = true;
@@ -85,8 +85,7 @@ void Player::Move(const float& dt) {
 	}
 	*/
 	//this->m_CameraPosition.y = 0.0f;
-	const float gravity = 0.6f;   // per frame impulse (matches your old code)
-
+	const float gravity = 0.6f; 
 	// Apply gravity if not grounded
 	if (!m_bIsGrounded) {
 		m_Velocity.y -= gravity;

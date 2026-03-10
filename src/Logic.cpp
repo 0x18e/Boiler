@@ -27,7 +27,10 @@ void Logic::Update(const float& dt) {
 	// update on set tick	
 	player->Move(dt);
     player->PlayerBoundaryCheck();
-    this->soul_orb.Move(player->GetPlayerPos(), dt);
-	this->soul_orb.Update(dt);
+    bool chase_player = false;
+    if (chase_player){
+        this->soul_orb.Move(player->GetPlayerPos(), dt);
+        this->soul_orb.Update(dt);
+    }
 	player->UpdateCamera();
 }
