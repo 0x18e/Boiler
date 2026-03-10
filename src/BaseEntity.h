@@ -6,7 +6,7 @@ class BaseEntity {
 public:
 	virtual void Spawn();
 	//TODO add pre and post think functions
-	virtual void Update();
+	virtual void Update(const float& dt);
 	virtual void Destroy();
 	virtual void Draw(glm::mat4 projection, glm::mat4 view);
 protected:

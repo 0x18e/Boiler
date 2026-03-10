@@ -66,7 +66,10 @@ bool Engine::Initialize() {
 	glfwSwapInterval(1); // vsync, use in fullscreen if possible
 	// glfw uses DwmFlush when vsync is on in windowed mode. Might lead to less than the refresh rate of monitor
 #endif //  VSYNC
-	
+#if LOCKCURSOR
+LOG("Locking cursor to screen");
+glfwSetInputMode(WindowHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+#endif
 	ResourceHandler::Get().Precache();
 	LOG("Finished initializing engine");
 	if (!this->m_Logic.Init()){

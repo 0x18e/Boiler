@@ -17,17 +17,17 @@ bool Logic::Init() {
 }
 
 void Logic::Render() {
-	// out of touch?
 	glm::mat4 projection;
 	// Use players fov instead
-	projection = glm::perspective(glm::radians(player->GetFov()), (float)WindowHandler::Get().GetWidth() / WindowHandler::Get().GetHeight(), 0.1f, 100.0f);
+	projection = glm::perspective(glm::radians(player->GetFov()), (float)WindowHandler::Get().GetWidth() / WindowHandler::Get().GetHeight(), 0.1f, 1000.0f);
 	this->soul_orb.Draw(projection, player->GetViewMatrix());
 }
 
 void Logic::Update(const float& dt) {
 	// update on set tick	
 	player->Move(dt);
-	
-	this->soul_orb.Update();
+    player->PlayerBoundaryCheck();
+    this->soul_orb.Move(player->GetPlayerPos(), dt);
+	this->soul_orb.Update(dt);
 	player->UpdateCamera();
 }

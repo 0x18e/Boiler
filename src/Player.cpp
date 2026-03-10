@@ -98,17 +98,32 @@ void Player::Move(const float& dt) {
 		m_bIsGrounded = true;
 	}
 	// friction
-	m_Velocity.x *= 0.9f;
-	m_Velocity.z *= 0.9f;
+	m_Velocity.x *= this->m_fFrictionConstant * dt;
+	m_Velocity.z *= this->m_fFrictionConstant * dt;
+
 }
 void Player::Jump() {
-
 	// this should be an impulse jump
 	m_bIsGrounded = false;
 	this->m_Velocity.y = 10.0f;
 	
 }
-
+void Player::PlayerBoundaryCheck(){
+    if (this->m_Position.x > 50.0f){
+        this->m_Position.x = 49.0f;
+    }else if (this->m_Position.x < -50.0f){
+        this->m_Position.x = -49.0f;
+    }
+    if (this->m_Position.z > 50.0f){
+        this->m_Position.z = 49.0f;
+    } else if (this->m_Position.z < -50.0f){
+        this->m_Position.z = -50.0f;
+    }
+    
+}
+glm::vec3 Player::GetPlayerPos(){
+    return this->m_Position;
+}
 void Player::UpdateCamera() {
 	// Maybe pass in our change in position as reference to update?
 	this->m_Camera.Update(this->BuildCamera());
@@ -119,7 +134,6 @@ glm::mat4& Player::GetViewMatrix() {
 }
 
 glm::vec3 Player::GetForwardVector() {
-
 	glm::vec3 direction;
 	// Rotation input would be here.
 	direction.x = cos(glm::radians(InputHandler::Get().GetYaw())) * cos(glm::radians(InputHandler::Get().GetPitch()));
@@ -127,7 +141,6 @@ glm::vec3 Player::GetForwardVector() {
 	direction.z = sin(glm::radians(InputHandler::Get().GetYaw())) * cos(glm::radians(InputHandler::Get().GetPitch()));
 	return glm::normalize(direction);
 }
-
 CameraState Player::BuildCamera() {
 	CameraState state;
 	state.eyeOffset = glm::vec3(0.0f, 1.5f, 0.0f);

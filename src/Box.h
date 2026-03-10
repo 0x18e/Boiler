@@ -7,7 +7,7 @@ class Box : public BaseEntity {
 		PhysicsObject m_PhysObject; // what defines it as the object.
 	public:	
 	void Spawn() override;
-	void Update() override;
+	void Update(const float& dt) override;
 	void Destroy() override;
 	PhysicsObject& GetPhysicsObject() { return this->m_PhysObject; }
 };

@@ -19,9 +19,15 @@ public:
 	void Move(const float& dt);
 	void Spawn();
 	void UpdateCamera(); // This should update at the end of our move function
+    void PlayerBoundaryCheck();
+    glm::vec3 GetPlayerPos();
 	glm::mat4& GetViewMatrix();
 	glm::vec3 GetForwardVector();
-	
+    #ifdef DEBUG
+    void SHOWPOS1() {
+        LOG("Player position x" << m_Position.x << ", y: " << m_Position.y << ", z: " << m_Position.z);  
+    }
+    #endif
 	float GetFov() { return this->m_fFov; }
 private:
 	CameraState BuildCamera(); // runs per frame or will eventually get cached for interpolation
@@ -38,7 +44,7 @@ private:
 	float m_fMass;
 	float m_fFov;
 	bool m_bIsGrounded;
-
+    const float m_fFrictionConstant = 30.0f;
 	// player should not own any part of the camera's internals
 	Camera m_Camera;
 	CameraState m_PlayerCameraState; // should be equal to whatever we do to the camera
