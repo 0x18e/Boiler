@@ -24,7 +24,7 @@ bool SoundBuffer::LoadFromFile(const std::string& name){
 		m_Buffer,
 		format,
 		pcmData.data(),
-		static_cast<ALsizei>(samplesRead * sizeof(drwav_int16)),
+		static_cast<ALsizei>(samplesRead * sizeof(int16_t)),
 		wav.sampleRate
 	);
 
@@ -37,12 +37,13 @@ bool SoundBuffer::LoadFromFile(const std::string& name){
 	
 }
 SoundBuffer::~SoundBuffer() {
+
+}
+void SoundBuffer::Clear() {
 	if (m_Buffer != 0) {
 		alDeleteBuffers(1, &this->m_Buffer);
 	}
 }
-
-
 
 SoundSource::SoundSource() {
 	alGenSources(1, &m_Source);
@@ -98,7 +99,12 @@ void AudioEngine::Shutdown() {
 		alcCloseDevice(m_pDevice);
 		m_pDevice = nullptr;
 	}
+	for (auto& ptr : this->m_LoadedBuffers) {
+		LOG("Clearing Loaded buffers");
+		ptr.get()->Clear();
+	}
 	m_LoadedBuffers.clear();
+	LOG("Destroyed audio engine");
 }
 
 std::shared_ptr<SoundBuffer> AudioEngine::LoadSound(const std::string& filename) {

@@ -10,6 +10,7 @@ public:
 	SoundBuffer() : m_Buffer(0) {};
 	~SoundBuffer();
 	bool LoadFromFile(const std::string& name);
+	void Clear();
 	ALuint GetBuffer() const { return m_Buffer; }; // cannot modify m_BufferID;
 private:
 	ALuint m_Buffer;
@@ -42,7 +43,7 @@ public:
 
 private:
 	AudioEngine() : m_pDevice(nullptr), m_pContext(nullptr) {}
-	~AudioEngine() { this->Shutdown(); }
+	~AudioEngine() {};
 
 	size_t m_cMaxSize;
 	ALCdevice* m_pDevice;

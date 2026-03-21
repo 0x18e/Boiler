@@ -4,6 +4,7 @@
 #include "openal/al.h"
 #include "openal/alc.h"
 #include "AudioEngine.h"
+#include "Physics.h"
 
 /*TODO
 * REWRITE THE ENTIRE Model.h class, this has a lot of weird code copied from opengl
@@ -27,7 +28,8 @@ public:
 
 private:
 	Logic m_Logic;
-	float dt; // Handling delta time, about time I added this
+	PhysicsEngine m_PhysWorld;
+	float dt;
 	float current_Time;
 	float t; // engine time
 	// change from 0.01 to diff amount later on because this might be too fast

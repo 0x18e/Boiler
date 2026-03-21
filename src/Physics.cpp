@@ -8,20 +8,29 @@ void PhysicsObject::Init(glm::vec3 initial_position) {
 	this->m_Velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 }
 */
-void PhysicsWorld::AddObject(PhysicsObject& object) {
+void PhysicsEngine::AddObject(PhysicsObject& object) {
 	this->m_Objects.push_back(&object);
 }
 
 // PhysicsWorld
-void PhysicsWorld::Integrate() {
-	for (auto& object : this->m_Objects) {	  // temporary dt
+void PhysicsEngine::Integrate(const float& dt) {
+	for (auto& object : this->m_Objects) {
         if (object->m_isKinematic){
             continue;
         }
-		//object.get()->GetVelocity() += object.get()->GetAccel() * (1.0f / 60.0f);
-		//object.get()->GetPosition() += object.get()->GetVelocity() * (1.0f / 60.0f);
-		object->m_Velocity += object->m_Acceleration * 0.1f;
-		object->m_Position += object->m_Velocity * 0.1f;		
+		object->m_Velocity += object->m_Acceleration * dt;
+		object->m_Position += object->m_Velocity * dt;
+	}
+}
+void PhysicsEngine::ApplyGravity(PhysicsObject &object) {
+	object.m_Acceleration.y -= 0.98f;
+}
+void PhysicsEngine::Clean() {
+	for (auto* obj : this->m_Objects) {
+		if (obj) {
+			LOG("Deleted physics object");
+			delete obj;
+		}
 	}
 }
 

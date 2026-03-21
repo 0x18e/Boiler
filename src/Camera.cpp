@@ -28,7 +28,6 @@ Camera::Camera() {
 	// -1 for now cause we dont rotate, our front will always be front
 	this->m_CameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 	*/
-	
 }
 
 float Camera::GetSensitivity() {
@@ -75,7 +74,7 @@ void Camera::Update(CameraState new_state) {
 }
 
 Camera::~Camera() {
-	LOG("Destroyed camera class");
+
 }
 
 void Camera::SetCameraPosition(const glm::vec3& position) {
@@ -90,7 +89,4 @@ void Camera::SetCameraSpeed(const float& speed) {
 	this->m_CameraSpeed = speed;
 }
 
-void Camera::MoveCamera() {
-	
-}
 

@@ -2,9 +2,6 @@
 #include "GLFW/glfw3.h"
 #include "tools.h"
 
-
-// This class follows RAII
-
 class WindowHandler {
 
 public:
@@ -19,11 +16,9 @@ public:
 	GLFWwindow* GetWindow() { return m_pWindow; }
 	void ShowCursor(bool show);
 	bool CursorStatus();
-
+	void Exit();
 
 	~WindowHandler();
-
-
 private:
 
 	bool m_bShowCursor;

@@ -24,7 +24,7 @@ void Logic::Render() {
 }
 
 void Logic::Update(const float& dt) {
-	// update on set tick	
+	// update on set tick
 	player->Move(dt);
     player->PlayerBoundaryCheck();
     bool chase_player = false;

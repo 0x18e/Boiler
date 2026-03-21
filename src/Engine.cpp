@@ -10,11 +10,10 @@ Engine::~Engine() {
 }
 
 bool Engine::Initialize() {
-
 	t = 0.0f;
-
 	accumulator = 0.0f;
 	current_Time = glfwGetTime();
+
 	if (!glfwInit()) {
 		LOG("Could not init glfw");
 	}
@@ -37,9 +36,6 @@ bool Engine::Initialize() {
 		LOG("Failed to initialize audio handler");
 		return false;
 	}
-	// dont load audio here, this is kinda stupid, load it in a level handler..
-	// temp code.
-	
 	
 
 	// Load opengl functions from glad
@@ -97,7 +93,7 @@ void Engine::Run() {
 		// freeing the physics
 		while (accumulator >= fdt) {
 			this->m_Logic.Update(fdt);
-			
+			this->m_PhysWorld.Integrate(dt);
 			accumulator -= fdt;
 			t += fdt;
 		}
@@ -115,4 +111,6 @@ void Engine::Exit() {
 	LOG("Cleaning up engine");
 	AudioEngine::Get().Shutdown();
 	ResourceHandler::Get().Cleanup();
+	WindowHandler::Get().Exit();
+	InputHandler::Get().Cleanup();
 }

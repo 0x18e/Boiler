@@ -15,6 +15,15 @@ void WindowHandler::ShowCursor(bool showval) {
 	else
 		glfwSetInputMode(this->m_pWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
+void WindowHandler::Exit() {
+	LOG("Cleaning up window");
+	if (this->m_pWindow != nullptr) {
+		glfwDestroyWindow(this->m_pWindow);
+		this->m_pWindow = nullptr;
+		this->m_Name.clear();
+		LOG("Window destroyed");
+	}
+}
 
 bool WindowHandler::CursorStatus() {
 	return this->m_bShowCursor;
@@ -33,16 +42,8 @@ bool WindowHandler::CreateWindow(int width, int height, std::string name) {
 		return false;
 	}
 	glfwMakeContextCurrent(this->m_pWindow);
-	glfwSetFramebufferSizeCallback(this->m_pWindow, FrameBufferSizeCallback);	
-	/*
-	glfwSetWindowSizeLimits(this->m_pWindow, this->m_nWindowWidth,
-		this->m_nWindowHeight,
-		this->m_nWindowWidth,
-		this->m_nWindowHeight
-	);
+	glfwSetFramebufferSizeCallback(this->m_pWindow, FrameBufferSizeCallback);
 
-	*/
-	//glfwSetInputMode(this->m_pWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	return true;
 }
 
@@ -57,13 +58,6 @@ bool WindowHandler::ChangeResolution(int x, int y) {
 	return false;
 }
 
-
 WindowHandler::~WindowHandler() {
-    LOG("Cleaning up window");
-    if (this->m_pWindow != nullptr) {
-        glfwDestroyWindow(this->m_pWindow);
-		this->m_pWindow = nullptr;
-		this->m_Name.clear();
-        LOG("Window destroyed");
-    }
+
 }

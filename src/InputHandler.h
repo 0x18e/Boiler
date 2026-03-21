@@ -6,8 +6,6 @@
 #include "WindowHandler.h"
 
 
-
-
 class InputHandler {
 public:
 	static InputHandler& Get() {
@@ -21,9 +19,9 @@ public:
 
 	void Update();
 	// Minimal approach to input, later on will add previously held keys, vs current keys, etc.
-	bool IsHeld(int key);
-	bool IsPressed(int key);
-	bool IsReleased(int key);
+	bool IsHeld(const int& key);
+	bool IsPressed(const int& key);
+	bool IsReleased(const int& key);
 	void Cleanup();
 	~InputHandler();
 

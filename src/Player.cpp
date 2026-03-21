@@ -61,7 +61,6 @@ void Player::Move(const float& dt) {
 			this->m_fFov = 24.0f;
 		}
 		else {
-			LOG("zooming in");
 			this->m_fFov -= 0.9f;
 		}
 	}
@@ -85,7 +84,7 @@ void Player::Move(const float& dt) {
 	}
 	*/
 	//this->m_CameraPosition.y = 0.0f;
-	const float gravity = 0.6f; 
+	const float gravity = 0.98f; 
 	// Apply gravity if not grounded
 	if (!m_bIsGrounded) {
 		m_Velocity.y -= gravity;
@@ -104,7 +103,7 @@ void Player::Move(const float& dt) {
 void Player::Jump() {
 	// this should be an impulse jump
 	m_bIsGrounded = false;
-	this->m_Velocity.y = 10.0f;
+	this->m_Velocity.y = 30.0f;
 	
 }
 void Player::PlayerBoundaryCheck(){
@@ -118,7 +117,6 @@ void Player::PlayerBoundaryCheck(){
     } else if (this->m_Position.z < -50.0f){
         this->m_Position.z = -50.0f;
     }
-    
 }
 glm::vec3 Player::GetPlayerPos(){
     return this->m_Position;
