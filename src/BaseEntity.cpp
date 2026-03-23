@@ -2,7 +2,6 @@
 #include <GLFW/glfw3.h>
 
 void BaseEntity::Spawn() {
-	LOG("Spawned base entity");
 	// Give base entity a default model
 	this->m_pModel = ResourceHandler::Get().GetModel("obj_debug");
 	if (this->m_pModel == nullptr) {
@@ -34,5 +33,5 @@ void BaseEntity::Update(const float& dt) {
 }
 
 void BaseEntity::Destroy() {
-	LOG("Base entity destroyed");
+	
 }

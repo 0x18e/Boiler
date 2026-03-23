@@ -23,8 +23,8 @@ bool Logic::Init() {
 	this->box->SetPhysObject(this->PhysWorld.AddObject(glm::vec3(0.0, 0.0, 0.0)));
 	this->box->Spawn();
 	this->Entities.push_back(box);
+	//this->Entities.push_back(soul_orb);
 	return true;
-
 }
 void Logic::Shutdown() {
 	for (auto* ent : Entities) {
@@ -34,6 +34,7 @@ void Logic::Shutdown() {
 }
 
 void Logic::Render() {
+	
 	glm::mat4 projection;
 	// Use players fov instead
 	projection = glm::perspective(glm::radians(player->GetFov()), (float)WindowHandler::Get().GetWidth() / WindowHandler::Get().GetHeight(), 0.1f, 1000.0f);
@@ -52,7 +53,6 @@ void Logic::Update(const float& dt) {
 		b->Spawn();
 		b->SetBoxPos(player->GetForwardVector(), player->GetPlayerPos());
 		Entities.push_back(b);
-
 	}
 	player->Move(dt);
     player->PlayerBoundaryCheck();

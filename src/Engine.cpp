@@ -31,7 +31,10 @@ bool Engine::Initialize() {
 		LOG("Failed to initialize input handler");
 		return false;
 	}
-	
+	if (!m_Renderer.Init()) {
+		LOG("Faile to initialize renderer");
+		return false;
+	}
 	if (!AudioEngine::Get().Init()) {
 		LOG("Failed to initialize audio handler");
 		return false;
@@ -105,7 +108,8 @@ void Engine::Run() {
 		// a m_Logic.Integrate() function should exist based on time accumulation for fixed
 		// Physics timesteps
 
-		this->m_Logic.Render();
+		//this->m_Logic.Render();
+		this->m_Renderer.Render(m_Logic.GetEntities(), m_Logic.GetPlayerViewMatrix());
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glfwSwapBuffers(WindowHandler::Get().GetWindow());
 	}

@@ -5,6 +5,7 @@
 #include "openal/alc.h"
 #include "AudioEngine.h"
 #include "Physics.h"
+#include "Renderer.h"
 
 /*TODO
 * REWRITE THE ENTIRE Model.h class, this has a lot of weird code copied from opengl
@@ -26,6 +27,7 @@ public:
 	void Run();
 	void Exit();
 	PhysicsEngine m_PhysicsEngine;
+	Renderer m_Renderer;
 private:
 	Logic m_Logic;
 	

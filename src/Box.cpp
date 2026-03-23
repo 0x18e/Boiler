@@ -3,9 +3,6 @@
 
 // TODO, make virtual constructor take argument for model and shader, and call that function with some init function in box.
 void Box::Spawn() {
-	LOG("Box spawn called");
-    //this->m_PhysObject.Init(glm::vec3(0.0f, 0.0f, 5.0f));
-	LOG("Spawned base entity");
 	// Give base entity a default model
 	this->m_pModel = ResourceHandler::Get().GetModel("obj_crate");
 	if (this->m_pModel == nullptr) {
@@ -40,10 +37,8 @@ void Box::SetPhysObject(PhysicsObject* pObject) {
 	this->m_PhysObject = pObject;
 }
 void Box::Destroy() {
-	LOG("Box Destroy called");
 	if (this->m_PhysObject) {
 		m_PhysObject = nullptr;
-		LOG("PhysObject in box was not null and it now is");
 	}
 }
 

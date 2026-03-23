@@ -35,6 +35,9 @@ public:
 	void Render();
 	void Shutdown();
 	
+	std::vector<BaseEntity*> GetEntities() { return this->Entities; }
+	glm::mat4 GetPlayerViewMatrix() { return this->player.get()->GetViewMatrix(); }
+	
 private:
 	BaseEntity ent;
 	Skull soul_orb;
