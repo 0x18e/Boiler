@@ -17,12 +17,33 @@ void Box::Spawn() {
 		LOG("Failed to get shader for obj_crate");
 	}
 	this->m_ModelData = glm::mat4(1.0f);
+	this->m_PhysObject->m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+	this->m_PhysObject->m_Acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
+	this->m_PhysObject->m_Velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+	this->m_PhysObject->m_isKinematic = false;
+	this->m_PhysObject->m_PrevTransform = glm::vec3(0.0f);
+	this->m_PhysObject->m_Transform = glm::vec3(0.0f);
 }
 
 void Box::Update(const float& dt) {
-	LOG("Box update");
+	glm::mat4 model = glm::mat4(1.0f);
+
+	model = glm::translate(model, this->m_PhysObject->m_Position); // position at origin
+	//model = glm::scale(model, glm::vec3(m_fScale, m_fScale, m_fScale)); // scale down the skull
+	//m_fAngle = (float)glfwGetTime() * glm::radians(m_fRotationSpeed);
+	// skull is spawned looking downwards, so rotate it to face forward
+	//model = glm::rotate(model, m_fAngle, glm::vec3(0.0f, 1.0f, 0.0f)); // rotate around Y-axis
+	//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // rotate to face forward
+	this->m_ModelData = model;
+}
+void Box::SetPhysObject(PhysicsObject* pObject) {
+	this->m_PhysObject = pObject;
 }
 void Box::Destroy() {
 	LOG("Box Destroy called");
+	if (this->m_PhysObject) {
+		m_PhysObject = nullptr;
+		LOG("PhysObject in box was not null and it now is");
+	}
 }
 

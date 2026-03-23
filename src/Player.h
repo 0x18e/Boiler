@@ -20,9 +20,10 @@ public:
 	void Spawn();
 	void UpdateCamera(); // This should update at the end of our move function
     void PlayerBoundaryCheck();
-    glm::vec3 GetPlayerPos();
+	glm::vec3 GetPlayerPos();
 	glm::mat4& GetViewMatrix();
 	glm::vec3 GetForwardVector();
+	
     #ifdef DEBUG
     void SHOWPOS1() {
         LOG("Player position x" << m_Position.x << ", y: " << m_Position.y << ", z: " << m_Position.z);  

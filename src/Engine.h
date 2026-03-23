@@ -25,11 +25,10 @@ public:
 	bool Initialize();
 	void Run();
 	void Exit();
-
+	PhysicsEngine m_PhysicsEngine;
 private:
 	Logic m_Logic;
-	PhysicsEngine m_PhysWorld;
-	float dt;
+	
 	float current_Time;
 	float t; // engine time
 	// change from 0.01 to diff amount later on because this might be too fast

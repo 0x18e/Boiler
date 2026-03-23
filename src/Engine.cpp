@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include "Model.h"
 
-Engine::Engine() {
+Engine::Engine() : m_Logic(this->m_PhysicsEngine) {
 	this->Initialize();
 }
 
@@ -67,6 +67,7 @@ LOG("Locking cursor to screen");
 glfwSetInputMode(WindowHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 #endif
 	ResourceHandler::Get().Precache();
+	//this->m_Logic.AttachPhysEngine(m_PhysicsEngine);
 	LOG("Finished initializing engine");
 	if (!this->m_Logic.Init()){
 		LOG("Failed to initialize game logic");
@@ -89,11 +90,14 @@ void Engine::Run() {
 		InputHandler::Get().Update();
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+
 		glClearColor(1.0, 1.0f, 1.0f, 1.0f);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// freeing the physics
 		while (accumulator >= fdt) {
 			this->m_Logic.Update(fdt);
-			this->m_PhysWorld.Integrate(dt);
+			this->m_PhysicsEngine.Integrate(fdt);
 			accumulator -= fdt;
 			t += fdt;
 		}
@@ -102,6 +106,7 @@ void Engine::Run() {
 		// Physics timesteps
 
 		this->m_Logic.Render();
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glfwSwapBuffers(WindowHandler::Get().GetWindow());
 	}
 }
@@ -109,8 +114,10 @@ void Engine::Run() {
 void Engine::Exit() {
 	// Do all cleanup here
 	LOG("Cleaning up engine");
+	m_Logic.Shutdown();
 	AudioEngine::Get().Shutdown();
 	ResourceHandler::Get().Cleanup();
 	WindowHandler::Get().Exit();
 	InputHandler::Get().Cleanup();
+	m_PhysicsEngine.Clean();
 }

@@ -88,6 +88,7 @@ void Player::Move(const float& dt) {
 	// Apply gravity if not grounded
 	if (!m_bIsGrounded) {
 		m_Velocity.y -= gravity;
+		LOG(m_Velocity.y);
 	}
 	this->m_Position += m_Velocity * dt;
 	if (m_Position.y <= 0.0f) {

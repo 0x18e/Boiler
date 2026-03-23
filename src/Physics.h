@@ -1,6 +1,7 @@
 #pragma once
 #include "tools.h"
 #include<vector>
+#include<memory>
 
 
 struct PhysicsObject {
@@ -16,8 +17,8 @@ class PhysicsEngine {
 public:
 	void Integrate(const float& dt);
 	void ApplyGravity(PhysicsObject& object);
-	void AddObject(PhysicsObject& object);
+	PhysicsObject* AddObject(const glm::vec3 &pos);
 	void Clean();
 private:
-	std::vector<PhysicsObject*> m_Objects; // I refuse to use smart pointers for this.
+	std::vector<std::unique_ptr<PhysicsObject>> m_Objects; // I refuse to use smart pointers for this.
 };

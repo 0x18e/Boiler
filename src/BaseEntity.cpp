@@ -34,5 +34,5 @@ void BaseEntity::Update(const float& dt) {
 }
 
 void BaseEntity::Destroy() {
-
+	LOG("Base entity destroyed");
 }

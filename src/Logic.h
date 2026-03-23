@@ -13,6 +13,9 @@
 #include "ResourceHandler.h"
 #include "BaseEntity.h"
 #include "GameObjects.h"
+#include "Physics.h"
+#include "Box.h"
+#include <memory>
 /// <summary>
 /// All videogame logic should be handled here
 /// As a way to separate the engine from the logic
@@ -24,17 +27,21 @@ class Logic {
 	// This will have its main Init, Update, & Render function.
 	// Engine calls these functions in run.
 public:
-	Logic();
+	Logic(PhysicsEngine& physics) : PhysWorld(physics) {} 
 	~Logic();
 	
 	bool Init();
 	void Update(const float& dt);
 	void Render();
-
+	void Shutdown();
+	
 private:
 	BaseEntity ent;
 	Skull soul_orb;
+	PhysicsEngine &PhysWorld; // reference to our physics engine
+	Box* box;
 	float m_fDeltaTime; // Might be static in order to track everywhere else or global...
 	std::unique_ptr<Player> player;
+	std::vector<BaseEntity*> Entities;
 };
 
