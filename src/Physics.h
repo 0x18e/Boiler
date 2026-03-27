@@ -20,5 +20,5 @@ public:
 	PhysicsObject* AddObject(const glm::vec3 &pos);
 	void Clean();
 private:
-	std::vector<std::unique_ptr<PhysicsObject>> m_Objects; // I refuse to use smart pointers for this.
+	std::vector<std::unique_ptr<PhysicsObject>> m_Objects;
 };

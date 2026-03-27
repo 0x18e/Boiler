@@ -19,3 +19,9 @@ void Renderer::Render(const std::vector<BaseEntity*> &entities, const glm::mat4 
 		ent->Draw(m_ProjectionMatrix, viewMatrix);
 	}
 }
+void Renderer::SetDebugMode(const bool& val) {
+	this->m_bDebugMode = val;
+}
+void DebugRenderer::DebugRender() {
+	// Use players fov instead
+}
