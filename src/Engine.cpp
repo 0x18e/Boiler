@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "GLFW/glfw3.h"
 #include "Model.h"
 
 Engine::Engine() : m_Logic(this->m_PhysicsEngine) {
@@ -91,12 +92,17 @@ void Engine::Run() {
 
 		accumulator += frame_Time;
 		InputHandler::Get().Update();
-		
+		if (InputHandler::Get().IsPressed(GLFW_KEY_R)){
+			this->m_Renderer.SetDebugMode(true);
+		}
+		if (InputHandler::Get().IsPressed(GLFW_KEY_T)){
+			this->m_Renderer.SetDebugMode(false);
+		}
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 
 		glClearColor(1.0, 1.0f, 1.0f, 1.0f);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// freeing the physics
 		while (accumulator >= fdt) {
 			this->m_Logic.Update(fdt);
@@ -110,7 +116,6 @@ void Engine::Run() {
 
 		//this->m_Logic.Render();
 		this->m_Renderer.Render(m_Logic.GetEntities(), m_Logic.GetPlayerViewMatrix());
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glfwSwapBuffers(WindowHandler::Get().GetWindow());
 	}
 }

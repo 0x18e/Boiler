@@ -17,8 +17,3 @@ public:
 	void SetDebugMode(const bool& val);
 };
 
-class DebugRenderer {
-	// should draw wire frames around everything, maybe make a physics debug renderer? or just merge that into this?
-public:
-	void DebugRender();
-};

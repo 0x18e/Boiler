@@ -16,12 +16,15 @@ void Renderer::Render(const std::vector<BaseEntity*> &entities, const glm::mat4 
 	// Use players fov instead
 	this->m_ProjectionMatrix = glm::perspective((float)this->m_iFov, this->m_fAspectRatio, this->m_iNear, this->m_iFar);
 	for (auto* ent : entities) {
+		if (this->m_bDebugMode){
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);	
+		}
 		ent->Draw(m_ProjectionMatrix, viewMatrix);
+		if (this->m_bDebugMode){
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
 	}
 }
 void Renderer::SetDebugMode(const bool& val) {
 	this->m_bDebugMode = val;
-}
-void DebugRenderer::DebugRender() {
-	// Use players fov instead
 }
