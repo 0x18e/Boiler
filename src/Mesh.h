@@ -36,7 +36,7 @@ class Mesh {
   public:
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
     void Draw(Shader &shader);
-    unsigned int VAO, VBO, EBO; // Change later!! stick to hungarian notation!!!
+    unsigned int VAO, VBO, EBO;
     void SetupMesh();
 private:
     // This class is good but a part of it borrows a lot from the learnopengl website. 

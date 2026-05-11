@@ -20,9 +20,17 @@ void PhysicsEngine::Integrate(const float& dt) {
             continue;
         }
 		this->ApplyGravity(*object);
+		this->CheckBounds(*object);
 		//LOG(object->m_Velocity.y);
 		object->m_Velocity += object->m_Acceleration * dt;
 		object->m_Position += object->m_Velocity * dt;
+	}
+}
+void PhysicsEngine::CheckBounds(PhysicsObject& object) {
+	if (object.m_Position.y <= 0.0f) {
+		object.m_Position.y = 0.0f;
+		object.m_Acceleration.y = 0.0f;
+		object.m_Velocity.y = 0.0f;
 	}
 }
 void PhysicsEngine::ApplyGravity(PhysicsObject &object) {

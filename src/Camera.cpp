@@ -70,7 +70,9 @@ void Camera::Update(CameraState new_state) {
 
 
 	// first argument is the camera position
+	
 	this->m_ViewMatrix = glm::lookAt(this->m_CurrentState.position, this->m_CurrentState.position + this->m_CurrentState.forward, this->m_UpAxis);
+	//LOGVEC(m_CurrentState.position.x, m_CurrentState.position.y, m_CurrentState.position.z, "m_Position");
 }
 
 Camera::~Camera() {

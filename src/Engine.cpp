@@ -2,7 +2,17 @@
 #include "GLFW/glfw3.h"
 #include "Model.h"
 
-Engine::Engine() : m_Logic(this->m_PhysicsEngine) {
+Engine::Engine(int argc, char* argv[]) : m_Logic(this->m_PhysicsEngine) {
+	if (argc == 2 && _stricmp(argv[1], "editor")) {
+		this->mode = GlobalVars::EDITOR;
+	}
+	else {
+		this->mode = GlobalVars::GAME;
+	}
+	// FORCE INTO EDITOR FOR DEBUG
+#if FORCE_EDITOR
+	this->mode = GlobalVars::EDITOR;
+#endif
 	this->Initialize();
 }
 
@@ -33,9 +43,10 @@ bool Engine::Initialize() {
 		return false;
 	}
 	if (!m_Renderer.Init()) {
-		LOG("Faile to initialize renderer");
+		LOG("Failed to initialize renderer");
 		return false;
 	}
+
 	if (!AudioEngine::Get().Init()) {
 		LOG("Failed to initialize audio handler");
 		return false;
@@ -60,6 +71,10 @@ bool Engine::Initialize() {
 	glfwSetCursorPosCallback(WindowHandler::Get().GetWindow(), InputHandler::Get().MouseCallback);
 	
 	glEnable(GL_DEPTH_TEST);
+	if (!m_DebugRenderer.Init()) {
+		LOG("Failed to initialize debug renderer");
+		return false;
+	}
 
 
 #ifdef VSYNC
@@ -73,9 +88,15 @@ glfwSetInputMode(WindowHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISA
 	ResourceHandler::Get().Precache();
 	//this->m_Logic.AttachPhysEngine(m_PhysicsEngine);
 	LOG("Finished initializing engine");
-	if (!this->m_Logic.Init()){
-		LOG("Failed to initialize game logic");
-		return false;
+
+	if (this->mode == GlobalVars::GAME) {
+		if (!this->m_Logic.Init()){
+			LOG("Failed to initialize game logic");
+			return false;
+		}
+	}
+	if (this->mode == GlobalVars::EDITOR) {
+		// whatever bullshit initialization is needed 
 	}
 
 	return true;
@@ -83,7 +104,11 @@ glfwSetInputMode(WindowHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISA
 
 
 // TODO: USE camelCase
-void Engine::Run() {	
+void Engine::Run() {
+	Shader m_DebugShader("C:\\Users\\hazel\\source\\repos\\0x18e\\Boiler\\assets\\shaders\\line.vs", 
+		"C:\\Users\\hazel\\source\\repos\\0x18e\\Boiler\\assets\\shaders\\line.fs");
+		// this is gonna bite me back really bad, PLEASE delete this later
+
 	while (!glfwWindowShouldClose(WindowHandler::Get().GetWindow())) { // make this look nicer, put it into a function in the handler
 		// input first!
 		float new_Time = glfwGetTime();
@@ -99,23 +124,36 @@ void Engine::Run() {
 			this->m_Renderer.SetDebugMode(false);
 		}
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
+		m_DebugRenderer.Clear();
+		// per frame
+
+		// add debug stuff
+		m_DebugRenderer.AddLine({ 0,0,0 }, { 1,0,0 }, { 1,0,0 }); // X axis
+		m_DebugRenderer.AddLine({ 0,0,0 }, { 0,1,0 }, { 0,1,0 }); // Y axis
+		m_DebugRenderer.AddLine({ 0,0,0 }, { 0,0,1 }, { 0,0,1 }); // Z axis
+
+		// after normal rendering
 
 		glClearColor(1.0, 1.0f, 1.0f, 1.0f);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// freeing the physics
 		while (accumulator >= fdt) {
-			this->m_Logic.Update(fdt);
+			if (this->mode == GlobalVars::GAME) {
+				this->m_Logic.Update(fdt); // does this affect performance
+			}
+			else if (this->mode == GlobalVars::EDITOR) {
+				this->m_EditorContext.Update();
+			}
 			this->m_PhysicsEngine.Integrate(fdt);
 			accumulator -= fdt;
 			t += fdt;
 		}
-
-		// a m_Logic.Integrate() function should exist based on time accumulation for fixed
-		// Physics timesteps
-
-		//this->m_Logic.Render();
-		this->m_Renderer.Render(m_Logic.GetEntities(), m_Logic.GetPlayerViewMatrix());
+		if (this->mode == GlobalVars::GAME) {
+			this->m_Renderer.Render(m_Logic.GetEntities(), m_Logic.GetPlayerViewMatrix());
+			this->m_DebugRenderer.Render(m_Logic.GetPlayerViewMatrix(), m_Renderer.GetProjectionMatrix(), m_DebugShader);
+		}
+		else if (this->mode == GlobalVars::EDITOR) {
+			// build level editor view matrix and render with level editor entities
+		}
 		glfwSwapBuffers(WindowHandler::Get().GetWindow());
 	}
 }
@@ -123,7 +161,17 @@ void Engine::Run() {
 void Engine::Exit() {
 	// Do all cleanup here
 	LOG("Cleaning up engine");
-	m_Logic.Shutdown();
+	// temp switch case till i figure out a better idea for the global vars
+	switch (this->mode) {
+	case GlobalVars::EDITOR:
+		this->m_EditorContext.Clean();
+		break;
+	case GlobalVars::GAME:
+		this->m_Logic.Shutdown();
+		break;
+	default:
+		break;
+	}
 	AudioEngine::Get().Shutdown();
 	ResourceHandler::Get().Cleanup();
 	WindowHandler::Get().Exit();

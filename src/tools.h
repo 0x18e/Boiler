@@ -4,9 +4,10 @@
 #include<memory>
 #include<glm/vec3.hpp>
 #define DEBUG 1
+#define FORCE_EDITOR 1
 #if DEBUG
 #define LOG(x) std::cout << x << '\n'
-#define LOGVEC(x, y, z) std::cout << "x: " << x << ", y: " << y << ", z: " << z << '\n';
+#define LOGVEC(x, y, z, msg) std::cout << msg <<": x: " << x << ", y: " << y << ", z: " << z << '\n';
 #else
 #define LOGVEC(x, y, z)
 #define LOG(x)

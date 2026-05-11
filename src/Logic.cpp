@@ -19,10 +19,7 @@ bool Logic::Init() {
 	this->player = std::make_unique<Player>();
 	this->ent.Spawn();
 	this->soul_orb.Spawn();
-	box = new Box();
-	this->box->SetPhysObject(this->PhysWorld.AddObject(glm::vec3(0.0, 0.0, 0.0)));
-	this->box->Spawn();
-	this->Entities.push_back(box);
+
 	Skull* sk = new Skull();
 	sk->Spawn();
 	this->Entities.push_back(sk);
@@ -46,7 +43,6 @@ void Logic::Render() {
 	for (auto *ent : Entities) {
 		ent->Draw(projection, player->GetViewMatrix());
 	}
-	
 }
 
 void Logic::Update(const float& dt) {
