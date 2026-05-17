@@ -13,7 +13,7 @@
 #define LOG(x)
 #endif
 #define VSYNC 0
-#define LOCKCURSOR 1
+#define LOCKCURSOR 0
 
 
 // Should be the default error box to exist

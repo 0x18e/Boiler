@@ -17,10 +17,12 @@ private:
 	int m_iFov;
 	glm::mat4 m_ProjectionMatrix;
 	bool m_bDebugMode;
+	bool m_EditorMode;
 public:
 	void Render(const std::vector<BaseEntity*> &entities, const glm::mat4 &viewMatrix);
 	bool Init();
 	void SetDebugMode(const bool& val);
+	void SetEditorFlag(bool flag) { this->m_EditorMode = flag; }
 	glm::mat4& GetProjectionMatrix() { return this->m_ProjectionMatrix; }
 };
 

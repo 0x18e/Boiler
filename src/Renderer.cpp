@@ -9,12 +9,21 @@ bool Renderer::Init() {
 	this->m_iNear = 0.1f;
 	this->m_iFov = glm::radians(90.0f);
 	this->m_bDebugMode = false;
+	m_EditorMode = false;
 	return flag;
 }
 
 void Renderer::Render(const std::vector<BaseEntity*> &entities, const glm::mat4 &viewMatrix) {
 	// Use players fov instead
-	this->m_ProjectionMatrix = glm::perspective((float)this->m_iFov, this->m_fAspectRatio, this->m_iNear, this->m_iFar);
+	if (!this->m_EditorMode) {
+		this->m_ProjectionMatrix = glm::perspective((float)this->m_iFov, this->m_fAspectRatio, this->m_iNear, this->m_iFar);
+	}
+	if (this->m_EditorMode) {
+		this->m_ProjectionMatrix = glm::ortho((float)-WindowHandler::Get().GetWidth() / 2, (float)WindowHandler::Get().GetWidth() / 2,
+			(float)-WindowHandler::Get().GetHeight() / 2, (float)WindowHandler::Get().GetHeight() / 2,
+			(float)this->m_iNear, (float)this->m_iFar);
+	}
+
 	for (auto* ent : entities) {
 		if (this->m_bDebugMode){
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

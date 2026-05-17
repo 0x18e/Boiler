@@ -2,7 +2,6 @@
 
 void LevelEditor::PlaceObject() {
 	BaseEntity* ent = new BaseEntity();
-
 	this->m_pEntities.push_back(ent);
 	LOG("Placed object");
 }
@@ -24,4 +23,8 @@ void LevelEditorContext::Update() {
 	
 	m_Editor.PlaceObject();
 	count++;
+}
+
+void LevelEditorContext::BuildCamera() {
+
 }

@@ -1,9 +1,8 @@
 #include "tools.h"
 #include "Logic.h"
 
-//TODO: separate the rendering from the logic class
-//TODO: design and create a debug renderer that way we can debug physics and how things are rendered.
-// basic gist Renderer.Render(world, camera); whether it should be a singleton or something i am unsure. it shouldnt.
+
+
 
 Logic::~Logic() {
 	// keep in destructor for now
@@ -22,6 +21,7 @@ bool Logic::Init() {
 
 	Skull* sk = new Skull();
 	sk->Spawn();
+	
 	this->Entities.push_back(sk);
 	//this->Entities.push_back(soul_orb);
 	return true;
@@ -33,17 +33,19 @@ void Logic::Shutdown() {
 		delete ent;
 	}
 }
-
+/* OBSOLETE
 void Logic::Render() {
 	
 	glm::mat4 projection;
 	// Use players fov instead
-	projection = glm::perspective(glm::radians(player->GetFov()), (float)WindowHandler::Get().GetWidth() / WindowHandler::Get().GetHeight(), 0.1f, 1000.0f);
+	projection = glm::ortho(glm::radians(player->GetFov()), (float)WindowHandler::Get().GetWidth() / WindowHandler::Get().GetHeight(), 0.1f, 1000.0f);
+	
 	//this->soul_orb.Draw(projection, player->GetViewMatrix());
 	for (auto *ent : Entities) {
 		ent->Draw(projection, player->GetViewMatrix());
 	}
 }
+*/
 
 void Logic::Update(const float& dt) {
 	// update on set tick

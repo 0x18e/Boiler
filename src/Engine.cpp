@@ -96,7 +96,15 @@ glfwSetInputMode(WindowHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISA
 		}
 	}
 	if (this->mode == GlobalVars::EDITOR) {
-		// whatever bullshit initialization is needed 
+		/*	hack for getting skull to just show on screen
+		if (!this->m_Logic.Init()) {
+			LOG("Failed to initialize game logic");
+			return false;
+		}
+		*/
+		// whatever bullshit initialization is needed
+		this->m_Renderer.SetEditorFlag(true);
+		LOG("Starting in editor mode");
 	}
 
 	return true;
@@ -106,9 +114,8 @@ glfwSetInputMode(WindowHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISA
 // TODO: USE camelCase
 void Engine::Run() {
 	Shader m_DebugShader("C:\\Users\\hazel\\source\\repos\\0x18e\\Boiler\\assets\\shaders\\line.vs", 
-		"C:\\Users\\hazel\\source\\repos\\0x18e\\Boiler\\assets\\shaders\\line.fs");
-		// this is gonna bite me back really bad, PLEASE delete this later
-
+		"C:\\Users\\hazel\\source\\repos\\0x18e\\Boiler\\assets\\shaders\\line.fs"); // change to relative path instead of this garb
+		// or find somewhere else to use this shit
 	while (!glfwWindowShouldClose(WindowHandler::Get().GetWindow())) { // make this look nicer, put it into a function in the handler
 		// input first!
 		float new_Time = glfwGetTime();
@@ -153,6 +160,13 @@ void Engine::Run() {
 		}
 		else if (this->mode == GlobalVars::EDITOR) {
 			// build level editor view matrix and render with level editor entities
+			// TODO: check first param instead of being logic entity but something for editors.
+			// TODO: change second param for a different view matrix, unsure which matrix to use or how to change it
+			// another idea is to make it so that theres one main view matrix for the entirety of the engine, and swap matrices
+			// sounds a lot better to do than this shitshow of multiple view matrices
+			glm::mat4 viewmat = glm::lookAt(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f),
+				glm::vec3(0.0f, 1.0f, 0.0f));
+			this->m_Renderer.Render(m_Logic.GetEntities(), viewmat);
 		}
 		glfwSwapBuffers(WindowHandler::Get().GetWindow());
 	}

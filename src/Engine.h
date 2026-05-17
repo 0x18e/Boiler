@@ -13,6 +13,8 @@
 */
 
 class GlobalVars {
+
+	//static GlobalVars m_sInstance;
 public:
 	// temp code, still deciding whether globalvars make sense or not. console or no console
 	enum modes {
@@ -20,6 +22,7 @@ public:
 		EDITOR
 	};
 	// maybe use imgui?, imgui builds failing check later https://github.com/ocornut/imgui
+	
 };
 
 class Engine {

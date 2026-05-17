@@ -32,7 +32,6 @@ public:
 	
 	bool Init();
 	void Update(const float& dt);
-	void Render();
 	void Shutdown();
 	
 	std::vector<BaseEntity*> GetEntities() { return this->Entities; }

@@ -47,8 +47,6 @@ void Player::Move(const float& dt) {
 			glm::cross(this->m_PlayerCameraState.forward, this->m_Camera.GetUpAxis())) * this->m_fSpeed;
 	}
 
-
-
 	if (InputHandler::Get().IsPressed(GLFW_KEY_SPACE)) {
 		// go up
 		// impact velocity!!

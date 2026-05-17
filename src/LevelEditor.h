@@ -1,5 +1,6 @@
 #include "tools.h"
 #include "BaseEntity.h"
+#include "Camera.h"
 
 class LevelEditor {
 
@@ -15,7 +16,9 @@ public:
 class LevelEditorContext {
 private:
 	LevelEditor m_Editor;
+	Camera m_Camera;
 public:
 	void Update();
+	void BuildCamera();
 	void Clean() { m_Editor.Clean(); }
 };
