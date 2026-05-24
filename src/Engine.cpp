@@ -103,6 +103,7 @@ glfwSetInputMode(WindowHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISA
 		}
 		*/
 		// whatever bullshit initialization is needed
+		
 		this->m_Renderer.SetEditorFlag(true);
 		LOG("Starting in editor mode");
 	}
@@ -164,9 +165,11 @@ void Engine::Run() {
 			// TODO: change second param for a different view matrix, unsure which matrix to use or how to change it
 			// another idea is to make it so that theres one main view matrix for the entirety of the engine, and swap matrices
 			// sounds a lot better to do than this shitshow of multiple view matrices
-			glm::mat4 viewmat = glm::lookAt(glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f),
+			
+			glm::mat4 viewmat = glm::lookAt(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),
 				glm::vec3(0.0f, 1.0f, 0.0f));
-			this->m_Renderer.Render(m_Logic.GetEntities(), viewmat);
+
+			this->m_Renderer.Render(m_EditorContext.GetEditorEntities(), viewmat);
 		}
 		glfwSwapBuffers(WindowHandler::Get().GetWindow());
 	}

@@ -18,7 +18,7 @@ void Renderer::Render(const std::vector<BaseEntity*> &entities, const glm::mat4 
 	if (!this->m_EditorMode) {
 		this->m_ProjectionMatrix = glm::perspective((float)this->m_iFov, this->m_fAspectRatio, this->m_iNear, this->m_iFar);
 	}
-	if (this->m_EditorMode) {
+	else if (this->m_EditorMode) {
 		this->m_ProjectionMatrix = glm::ortho((float)-WindowHandler::Get().GetWidth() / 2, (float)WindowHandler::Get().GetWidth() / 2,
 			(float)-WindowHandler::Get().GetHeight() / 2, (float)WindowHandler::Get().GetHeight() / 2,
 			(float)this->m_iNear, (float)this->m_iFar);

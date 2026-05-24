@@ -9,6 +9,7 @@ public:
 	void Destroy() override;
 	void AddSoul() { m_iSoulCount++; }
     void Move(const glm::vec3& moveTo, const float& dt); // Move to this position. 
+
 private:
 	float m_fRotationSpeed;
     float m_fAngle;

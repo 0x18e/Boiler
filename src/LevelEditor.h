@@ -1,6 +1,12 @@
+#pragma once
 #include "tools.h"
 #include "BaseEntity.h"
 #include "Camera.h"
+#include "GameObjects.h"
+#include "Box.h"
+
+//Temp include
+#include "Physics.h"
 
 class LevelEditor {
 
@@ -10,15 +16,20 @@ private:
 public:
 	void PlaceObject();
 	void Clean();
-
+	std::vector<BaseEntity*>& GetEntities() { return this->m_pEntities; }
+	PhysicsObject *PhysObject;
 };
 
 class LevelEditorContext {
 private:
 	LevelEditor m_Editor;
 	Camera m_Camera;
+	
 public:
 	void Update();
 	void BuildCamera();
 	void Clean() { m_Editor.Clean(); }
+	std::vector<BaseEntity*>& GetEditorEntities() {
+		return m_Editor.GetEntities();
+	}
 };
