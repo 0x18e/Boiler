@@ -10,13 +10,14 @@ class Box : public BaseEntity {
 	void SetPhysObject(PhysicsObject* pObject);
 	void Update(const float& dt) override;
 	void Destroy() override;
+	void SetTransformPos(const glm::vec3& new_position) override;
+
 	// Spawn box in front of player
 	void SetBoxPos(glm::vec3 forward, glm::vec3 player_pos) {
 		
 		glm::vec3 fin = player_pos + (forward * 5.0f);
 		this->m_PhysObject->m_Position = fin;
 	}
-	void SetBoxPosition(const glm::vec3& newpos) {
-		this->m_PhysObject->m_Position = newpos;
-	}
+	
+
 };

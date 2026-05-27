@@ -22,6 +22,7 @@ bool Logic::Init() {
 	Skull* sk = new Skull();
 	sk->Spawn();
 	
+	
 	this->Entities.push_back(sk);
 	//this->Entities.push_back(soul_orb);
 	return true;

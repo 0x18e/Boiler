@@ -2,7 +2,7 @@
 
 void Skull::Spawn() {
 	LOG("Spawned Skull entity");
-	this->m_pModel = ResourceHandler::Get().GetModel("obj_skull");	
+	this->m_pModel = ResourceHandler::Get().GetModel("obj_skull");
 	if (this->m_pModel == nullptr) {
 		LOG("Failed to get model for Skull entity");
 	}
@@ -16,9 +16,8 @@ void Skull::Spawn() {
     this->m_PhysicsBody.m_Position = glm::vec3(0.0f);
     this->m_PhysicsBody.m_Velocity = glm::vec3(1.0f);
     this->m_PhysicsBody.m_Acceleration = glm::vec3(0.0f);
-    this->m_PhysicsBody.m_PrevTransform = glm::vec3(0.0f);
-    this->m_PhysicsBody.m_Transform = glm::vec3(0.0f);
-    this->m_fMoveSpeed = 5.0f; 
+
+    this->m_fMoveSpeed = 5.0f;
 }
 
 void Skull::Update(const float& dt) { 

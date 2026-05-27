@@ -1,6 +1,6 @@
 #include "LevelEditor.h"
 
-typedef short int SloozBerry;
+//typedef short int SloozBerry; funny
 void LevelEditor::PlaceObject() {
 	
 	Box* box = new Box();
@@ -12,7 +12,7 @@ void LevelEditor::PlaceObject() {
 	box->SetPhysObject(this->PhysObject);
 	box->Spawn();
 	
-	SloozBerry berry;
+	//SloozBerry berry; funny
 	
 	this->m_pEntities.push_back(box);
 	LOG("Placed object");
@@ -29,10 +29,16 @@ void LevelEditor::Clean() {
 
 void LevelEditorContext::Update() {
 	static int count = 0;
-
+	static float move_pos = 0.0f;
 	for (auto* ent : m_Editor.GetEntities()) {
 		ent->Update(0.1f);
-		static_cast<Box*>(ent)->SetBoxPosition(glm::vec3(0.0f, 80.0f, 0.0f));
+		if (InputHandler::Get().IsPressed(GLFW_KEY_W)) {
+			move_pos += 0.1;
+			LOG("Move_Pos: " << move_pos);
+			
+			static_cast<Box*>(ent)->SetTransformPos(glm::vec3(0.0f, move_pos, 0.0f));
+			static_cast<Box*>(ent)->SetScale(50.0f);
+		}
 	}
 
 	if (count == 3) return;
