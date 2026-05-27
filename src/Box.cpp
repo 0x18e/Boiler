@@ -19,7 +19,6 @@ void Box::Spawn() {
 	this->m_PhysObject->m_Acceleration = glm::vec3(0.0f, 0.0f, 0.0f);
 	this->m_PhysObject->m_Velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 	this->m_PhysObject->m_isKinematic = false;
-
 }
 
 void Box::Update(const float& dt) {
@@ -38,7 +37,8 @@ void Box::Update(const float& dt) {
 void Box::SetPhysObject(PhysicsObject* pObject) {
 	this->m_PhysObject = pObject;
 }
-void Box::Destroy() {
+void Box::Destroy() { 
+	
 	if (this->m_PhysObject) {
 		m_PhysObject = nullptr;
 	}

@@ -5,6 +5,11 @@
 #include "tools.h"
 #include "WindowHandler.h"
 
+enum MouseButton {
+	LEFT,
+	RIGHT,
+	MIDDLE,
+};
 
 class InputHandler {
 public:
@@ -12,6 +17,8 @@ public:
 		return m_sInstance;
 	}
 	static void MouseCallback(GLFWwindow* window, double xpos, double ypos);
+	static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+	
 	bool Init(GLFWwindow &window);
 	
 	double GetPitch();
@@ -22,6 +29,8 @@ public:
 	bool IsHeld(const int& key);
 	bool IsPressed(const int& key);
 	bool IsReleased(const int& key);
+	bool IsClicked(const MouseButton& click);
+	
 	void Cleanup();
 	~InputHandler();
 

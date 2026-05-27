@@ -4,7 +4,7 @@
 
 class Box : public BaseEntity {
 	private:
-		PhysicsObject* m_PhysObject = nullptr;
+		
 	public:	
 	void Spawn() override;
 	void SetPhysObject(PhysicsObject* pObject);

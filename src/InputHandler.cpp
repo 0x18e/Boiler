@@ -9,6 +9,31 @@ double InputHandler::lastX = 0.0f;
 double InputHandler::lastY = 0.0f;
 bool InputHandler::m_bFirstMouse = true;
 
+bool InputHandler::IsClicked(const MouseButton& click) {
+	if (click == MouseButton::LEFT) {
+		return glfwGetMouseButton(this->m_pWindow, GLFW_MOUSE_BUTTON_LEFT);
+	}
+	if (click == MouseButton::RIGHT) {
+		return glfwGetMouseButton(this->m_pWindow, GLFW_MOUSE_BUTTON_RIGHT);
+	}
+	return false;
+}
+void InputHandler::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+	if (action == GLFW_PRESS) {
+		switch (button) {
+		case GLFW_MOUSE_BUTTON_LEFT:
+			
+			break;
+
+		case GLFW_MOUSE_BUTTON_RIGHT:
+			break;
+
+		default:
+			break;
+		}
+	}
+}
+
 void InputHandler::MouseCallback(GLFWwindow* window, double xpos, double ypos) {
 
 	if (m_bFirstMouse) {
@@ -34,8 +59,6 @@ void InputHandler::MouseCallback(GLFWwindow* window, double xpos, double ypos) {
 		m_dPitch = 89.0f;
 	if (m_dPitch < -89.0f)
 		m_dPitch = -89.0f;
-
-	
 }
 
 double InputHandler::GetPitch() {

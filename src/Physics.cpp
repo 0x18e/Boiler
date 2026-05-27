@@ -9,7 +9,12 @@ void PhysicsObject::Init(glm::vec3 initial_position) {
 }
 */
 PhysicsObject* PhysicsEngine::AddObject(const glm::vec3& position) {
-	m_Objects.push_back(std::make_unique<PhysicsObject>());
+	std::unique_ptr<PhysicsObject> obj = std::make_unique<PhysicsObject>();
+	obj->m_Position = position;
+	obj->m_PrevPosition = glm::vec3(0.0f);
+	obj->m_isKinematic = false;
+	obj->m_Velocity = glm::vec3(0.0f);
+	m_Objects.push_back(std::move(obj));
 	return m_Objects.back().get();
 }
 
@@ -19,11 +24,14 @@ void PhysicsEngine::Integrate(const float& dt) {
         if (object->m_isKinematic){
             continue;
         }
+		object->m_PrevPosition = object->m_Position;
 		this->ApplyGravity(*object);
-		this->CheckBounds(*object);
+		
 		//LOG(object->m_Velocity.y);
 		object->m_Velocity += object->m_Acceleration * dt;
 		object->m_Position += object->m_Velocity * dt;
+
+		this->CheckBounds(*object);
 	}
 }
 void PhysicsEngine::CheckBounds(PhysicsObject& object) {

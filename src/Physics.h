@@ -6,8 +6,7 @@
 
 struct PhysicsObject {
 	glm::vec3 m_Position;
-    //glm::vec3 m_Transform;
-    //glm::vec3 m_PrevTransform;
+	glm::vec3 m_PrevPosition;
 	glm::vec3 m_Velocity;
 	glm::vec3 m_Acceleration;
     bool m_isKinematic = false;

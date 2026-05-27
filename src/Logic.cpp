@@ -54,6 +54,7 @@ void Logic::Update(const float& dt) {
 		Box* b = new Box();
 		b->SetPhysObject(this->PhysWorld.AddObject(glm::vec3(0.0, 0.0, 0.0)));
 		b->Spawn();
+		b->SetKinematic(false);
 		b->SetBoxPos(player->GetForwardVector(), player->GetPlayerPos());
 		Entities.push_back(b);
 	}

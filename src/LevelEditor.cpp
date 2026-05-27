@@ -10,6 +10,8 @@ void LevelEditor::PlaceObject() {
 	PhysObject = new PhysicsObject();
 	PhysObject->m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	box->SetPhysObject(this->PhysObject);
+	box->SetKinematic(true);
+	box->SetScale(50.0f);
 	box->Spawn();
 	
 	//SloozBerry berry; funny
@@ -30,15 +32,12 @@ void LevelEditor::Clean() {
 void LevelEditorContext::Update() {
 	static int count = 0;
 	static float move_pos = 0.0f;
+
+	if (InputHandler::Get().IsClicked(MouseButton::LEFT)) {
+		LOG("Pressed left");
+	}
 	for (auto* ent : m_Editor.GetEntities()) {
 		ent->Update(0.1f);
-		if (InputHandler::Get().IsPressed(GLFW_KEY_W)) {
-			move_pos += 0.1;
-			LOG("Move_Pos: " << move_pos);
-			
-			static_cast<Box*>(ent)->SetTransformPos(glm::vec3(0.0f, move_pos, 0.0f));
-			static_cast<Box*>(ent)->SetScale(50.0f);
-		}
 	}
 
 	if (count == 3) return;

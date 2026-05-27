@@ -69,7 +69,7 @@ bool Engine::Initialize() {
 	// Any other texture seems to really disagree and it really wants this off in order to work. 
 	//stbi_set_flip_vertically_on_load(true);	
 	glfwSetCursorPosCallback(WindowHandler::Get().GetWindow(), InputHandler::Get().MouseCallback);
-	
+	glfwSetMouseButtonCallback(WindowHandler::Get().GetWindow(), InputHandler::Get().MouseButtonCallback);
 	glEnable(GL_DEPTH_TEST);
 	if (!m_DebugRenderer.Init()) {
 		LOG("Failed to initialize debug renderer");
@@ -131,6 +131,7 @@ void Engine::Run() {
 		if (InputHandler::Get().IsPressed(GLFW_KEY_T)){
 			this->m_Renderer.SetDebugMode(false);
 		}
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		m_DebugRenderer.Clear();
 		// per frame
@@ -166,8 +167,8 @@ void Engine::Run() {
 			// another idea is to make it so that theres one main view matrix for the entirety of the engine, and swap matrices
 			// sounds a lot better to do than this shitshow of multiple view matrices
 			
-			glm::mat4 viewmat = glm::lookAt(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),
-				glm::vec3(0.0f, 1.0f, 0.0f));
+			glm::mat4 viewmat = glm::lookAt(glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),
+				glm::vec3(0.0f, 0.0f, -1.0f));
 
 			this->m_Renderer.Render(m_EditorContext.GetEditorEntities(), viewmat);
 		}
