@@ -35,6 +35,8 @@ void LevelEditorContext::Update() {
 
 	if (InputHandler::Get().IsClicked(MouseButton::LEFT)) {
 		LOG("Pressed left");
+		glm::vec2 pos = InputHandler::Get().GetMousePosition();
+		LOG(pos.x << ", y: " << pos.y);
 	}
 	for (auto* ent : m_Editor.GetEntities()) {
 		ent->Update(0.1f);

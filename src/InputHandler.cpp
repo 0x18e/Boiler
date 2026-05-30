@@ -104,6 +104,11 @@ void InputHandler::Cleanup() {
 	}
 	LOG("Cleaned up input handler");
 }
+glm::vec2 InputHandler::GetMousePosition(){
+	double xpos, ypos;
+	glfwGetCursorPos(this->m_pWindow, &xpos, &ypos);
+	return glm::vec2(xpos, ypos);
+}
 InputHandler::InputHandler() {	
 	// does nothing
 	m_pWindow = nullptr;

@@ -31,6 +31,8 @@ public:
 	bool IsReleased(const int& key);
 	bool IsClicked(const MouseButton& click);
 	
+	glm::vec2 GetMousePosition();
+
 	void Cleanup();
 	~InputHandler();
 

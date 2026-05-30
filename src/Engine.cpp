@@ -3,9 +3,16 @@
 #include "Model.h"
 
 Engine::Engine(int argc, char* argv[]) : m_Logic(this->m_PhysicsEngine) {
+#ifdef WIN32	
 	if (argc == 2 && _stricmp(argv[1], "editor")) {
 		this->mode = GlobalVars::EDITOR;
 	}
+#else
+	// strcasecmp conforms to 4.4BSD, POSIX.1-2001. 
+	if (argc == 2 && strcasecmp(argv[1], "editor")){
+		this->mode = GlobalVars::EDITOR;
+	}
+#endif
 	else {
 		this->mode = GlobalVars::GAME;
 	}

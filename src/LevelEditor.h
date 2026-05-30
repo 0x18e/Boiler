@@ -32,4 +32,6 @@ public:
 	std::vector<BaseEntity*>& GetEditorEntities() {
 		return m_Editor.GetEntities();
 	}
+
+	// Helper functions
 };
