@@ -14,13 +14,14 @@ class LevelEditor {
 private:
 	std::vector<BaseEntity*> m_pEntities; // walls, and everything in between counts
 public:
-	void PlaceObject();
+	void PlaceObject(glm::vec3 position);
 	void Clean();
 	std::vector<BaseEntity*>& GetEntities() { return this->m_pEntities; }
 	PhysicsObject *PhysObject;
 };
 
 class LevelEditorContext {
+
 private:
 	LevelEditor m_Editor;
 	Camera m_Camera;
@@ -33,5 +34,5 @@ public:
 		return m_Editor.GetEntities();
 	}
 
-	// Helper functions
+
 };
