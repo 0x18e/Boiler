@@ -3,6 +3,12 @@
 #include<iostream>
 #include<memory>
 #include<glm/vec3.hpp>
+
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
+
 #define DEBUG 1
 #define FORCE_EDITOR 1
 #if DEBUG

@@ -114,7 +114,17 @@ glfwSetInputMode(WindowHandler::Get().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISA
 		this->m_Renderer.SetEditorFlag(true);
 		LOG("Starting in editor mode");
 	}
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
+
+	// Setup Platform/Renderer backends
+	ImGui_ImplGlfw_InitForOpenGL(WindowHandler::Get().GetWindow(), true);          // Second param install_callback=true will install GLFW callbacks and chain to existing ones.
+	ImGui_ImplOpenGL3_Init();
 	return true;
 }
 
@@ -132,7 +142,14 @@ void Engine::Run() {
 
 		accumulator += frame_Time;
 		InputHandler::Get().Update();
-		if (InputHandler::Get().IsPressed(GLFW_KEY_R)){
+// Start the Dear ImGui frame
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+		ImGui::ShowDemoWindow(); // Show demo window! :)
+	
+
+	if (InputHandler::Get().IsPressed(GLFW_KEY_R)){
 			this->m_Renderer.SetDebugMode(true);
 		}
 		if (InputHandler::Get().IsPressed(GLFW_KEY_T)){
@@ -179,6 +196,8 @@ void Engine::Run() {
 
 			this->m_Renderer.Render(m_EditorContext.GetEditorEntities(), viewmat);
 		}
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		glfwSwapBuffers(WindowHandler::Get().GetWindow());
 	}
 }
@@ -202,4 +221,9 @@ void Engine::Exit() {
 	WindowHandler::Get().Exit();
 	InputHandler::Get().Cleanup();
 	m_PhysicsEngine.Clean();
+
+
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 }

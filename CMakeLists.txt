@@ -7,7 +7,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp" "${PROJECT_SOURCE_DIR}/src/*.h" "${PROJECT_SOURCE_DIR}/src/*.c")
 
-
 find_package(OpenGL REQUIRED)
 
 if (APPLE)
@@ -15,7 +14,19 @@ find_package(glfw3 REQUIRED)
 #message(STATUS "Compiling for mac")
 endif()
 add_executable(Boiler ${SOURCES})
-target_include_directories(Boiler PUBLIC "${PROJECT_SOURCE_DIR}/include/")
+set(IMGUI_DIR "${PROJECT_SOURCE_DIR}/include/imgui")
+
+target_sources(Boiler PRIVATE
+    ${IMGUI_DIR}/imgui.cpp
+	    ${IMGUI_DIR}/imgui_draw.cpp
+		    ${IMGUI_DIR}/imgui_tables.cpp
+			    ${IMGUI_DIR}/imgui_widgets.cpp
+				    ${IMGUI_DIR}/imgui_demo.cpp
+					    ${IMGUI_DIR}/backends/imgui_impl_glfw.cpp
+						    ${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp
+							)
+target_include_directories(Boiler PUBLIC "${PROJECT_SOURCE_DIR}/include/"     "${IMGUI_DIR}"
+    "${IMGUI_DIR}/backends")
 target_link_directories(Boiler PRIVATE
     "${CMAKE_SOURCE_DIR}/lib/"
 )
