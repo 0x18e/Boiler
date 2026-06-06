@@ -25,7 +25,7 @@ target_sources(Boiler PRIVATE
 					    ${IMGUI_DIR}/backends/imgui_impl_glfw.cpp
 						    ${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp
 							)
-target_include_directories(Boiler PUBLIC "${PROJECT_SOURCE_DIR}/include/"     "${IMGUI_DIR}"
+target_include_directories(Boiler PUBLIC "${PROJECT_SOURCE_DIR}/include/" "${IMGUI_DIR}"
     "${IMGUI_DIR}/backends")
 target_link_directories(Boiler PRIVATE
     "${CMAKE_SOURCE_DIR}/lib/"

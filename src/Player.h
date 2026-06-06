@@ -26,7 +26,7 @@ public:
 	
     #ifdef DEBUG
     void SHOWPOS1() {
-        LOG("Player position x" << m_Position.x << ", y: " << m_Position.y << ", z: " << m_Position.z);  
+        LOG("Player position x" << m_Position.x << ", y: " << m_Position.y << ", z: " << m_Position.z); 
     }
     #endif
 	float GetFov() { return this->m_fFov; }

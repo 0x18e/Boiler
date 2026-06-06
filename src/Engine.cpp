@@ -146,7 +146,7 @@ void Engine::Run() {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-		ImGui::ShowDemoWindow(); // Show demo window! :)
+		//ImGui::ShowDemoWindow(); // Show demo window! :)
 	
 
 	if (InputHandler::Get().IsPressed(GLFW_KEY_R)){
