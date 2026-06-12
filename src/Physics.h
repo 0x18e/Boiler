@@ -18,6 +18,7 @@ public:
 	void ApplyGravity(PhysicsObject& object);
 	PhysicsObject* AddObject(const glm::vec3 &pos);
 	void CheckBounds(PhysicsObject& obj);
+	
 	void Clean();
 private:
 	std::vector<std::unique_ptr<PhysicsObject>> m_Objects;

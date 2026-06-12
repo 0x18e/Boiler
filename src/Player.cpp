@@ -15,6 +15,11 @@ void Player::Spawn() {
 	this->m_Position = glm::vec3(0.0f, 0.0f, 3.0f);
 	this->m_Velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 	this->m_bIsGrounded = true;
+	this->m_Pistol = new Pistol();
+	// set phys object causes nullptr access read write error to not happen
+	this->m_Pistol->Spawn();
+	
+	this->m_Pistol->SetTransformPos(m_Position);
 }
 
 //TODO work on player movement, aceleration, velocity, position gets updated, so does camera position as well.
@@ -136,6 +141,11 @@ glm::vec3 Player::GetForwardVector() {
 	direction.y = sin(glm::radians(InputHandler::Get().GetPitch()));
 	direction.z = sin(glm::radians(InputHandler::Get().GetYaw())) * cos(glm::radians(InputHandler::Get().GetPitch()));
 	return glm::normalize(direction);
+}
+void Player::Update(const float& dt) {
+	this->Move(dt);
+	//this->m_Pistol->AdjustPistol(this->GetForwardVector(), this->GetPlayerPos());
+	this->PlayerBoundaryCheck();
 }
 CameraState Player::BuildCamera() {
 	CameraState state;

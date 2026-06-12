@@ -42,7 +42,7 @@ void PhysicsEngine::CheckBounds(PhysicsObject& object) {
 	}
 }
 void PhysicsEngine::ApplyGravity(PhysicsObject &object) {
-	object.m_Acceleration.y = -9.81;
+	object.m_Acceleration.y = -9.81; // dont account for object mass here, oversimplified engine
 	//object.m_Velocity.y -= 0.98;
 }
 void PhysicsEngine::Clean() {

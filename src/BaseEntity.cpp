@@ -32,7 +32,12 @@ void BaseEntity::SetTransformPos(const glm::vec3& new_position) {
 
 void BaseEntity::Update(const float& dt) {
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+	if (this->m_PhysObject) {
+		model = glm::translate(model, this->m_PhysObject->m_Position); // translate it down so it's at the center of the scene
+	}
+	else {
+		model = glm::translate(model, this->m_Transform.pos);
+	}
 	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 	model = glm::rotate(model, (float)glfwGetTime() * glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	this->m_ModelData = model;

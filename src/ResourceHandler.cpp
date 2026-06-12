@@ -8,6 +8,7 @@ void ResourceHandler::Precache() {
 	this->m_Models["obj_debug"] = std::make_unique<Model>("assets/models/kiwi/kiwi.obj");
 	this->m_Models["obj_skull"] = std::make_unique<Model>("assets/models/skull/12140_Skull_v3_L2.obj");
 	this->m_Models["obj_crate"] = std::make_unique<Model>("assets/models/crate/Crate1.obj");
+	this->m_Models["weapon_pistol"] = std::make_unique<Model>("assets/models/weapons/pistol.obj");
 	// Shaders
 	this->m_Shaders["base_shader"] = std::make_unique<Shader>("assets/shaders/model_loading.vs", "assets/shaders/model_loading.fs");
 	

@@ -1,7 +1,11 @@
 #pragma once
+#include <glad/glad.h>
 #include "tools.h"
 #include "Camera.h"
 #include "AudioEngine.h"
+#include "Weapons.h"
+
+
 
 
 /* Notes & questions for not tired me
@@ -10,7 +14,10 @@
 * 
 */
 
-
+enum WEAPONS {
+	PISTOL,
+	SHOTGUN,
+};
 class Player {
 
 public:
@@ -23,10 +30,12 @@ public:
 	glm::vec3 GetPlayerPos();
 	glm::mat4& GetViewMatrix();
 	glm::vec3 GetForwardVector();
-	
+	void Update(const float& dt);
+	Pistol* GetWeaponPtr() { return this->m_Pistol; }
+
     #ifdef DEBUG
     void SHOWPOS1() {
-        LOG("Player position x" << m_Position.x << ", y: " << m_Position.y << ", z: " << m_Position.z); 
+        LOG("Player position x" << m_Position.x << ", y: " << m_Position.y << ", z: " << m_Position.z); 	
     }
     #endif
 	float GetFov() { return this->m_fFov; }
@@ -40,7 +49,8 @@ private:
 	glm::vec3 m_CrouchOffset;
 	glm::vec3 m_DeadOffset;
 	
-
+	Pistol *m_Pistol;
+	
 	float m_fSpeed;
 	float m_fMass;
 	float m_fFov;

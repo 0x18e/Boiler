@@ -16,12 +16,15 @@ bool Logic::Init() {
 	this->m_fDeltaTime = .0f;
 	LOG("Logic constructor went off");
 	this->player = std::make_unique<Player>();
+	this->Entities.push_back(this->player->GetWeaponPtr());
+	
 	this->ent.Spawn();
 	this->soul_orb.Spawn();
 
 	Skull* sk = new Skull();
 	sk->Spawn();
 	
+
 	
 	this->Entities.push_back(sk);
 	//this->Entities.push_back(soul_orb);
@@ -58,9 +61,7 @@ void Logic::Update(const float& dt) {
 		b->SetBoxPos(player->GetForwardVector(), player->GetPlayerPos());
 		Entities.push_back(b);
 	}
-	player->Move(dt);
-    player->PlayerBoundaryCheck();
-	//box->Update(dt);
+	player->Update(dt);
     bool chase_player = false;
     if (chase_player){
         //this->soul_orb.Move(player->GetPlayerPos(), dt);
