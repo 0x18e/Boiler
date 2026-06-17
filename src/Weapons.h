@@ -7,7 +7,11 @@ public:
 	void Spawn() override;
 	void SetPhysObject(PhysicsObject* pObject) { this->m_PhysObject = pObject; }
 	void AdjustPistol(const glm::vec3& forward, const glm::vec3& player_position) {
+		
 		glm::vec3 fin = player_position + (forward * 5.0f);
-		this->m_PhysObject->m_Position = fin;
+		this->m_Transform.pos = fin;
 	}
+	void Update(const float& dt) override;
+	
 };
+

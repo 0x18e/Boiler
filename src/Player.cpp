@@ -144,7 +144,7 @@ glm::vec3 Player::GetForwardVector() {
 }
 void Player::Update(const float& dt) {
 	this->Move(dt);
-	//this->m_Pistol->AdjustPistol(this->GetForwardVector(), this->GetPlayerPos());
+	this->m_Pistol->AdjustPistol(this->GetForwardVector(), this->GetPlayerPos());
 	this->PlayerBoundaryCheck();
 }
 CameraState Player::BuildCamera() {

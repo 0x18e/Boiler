@@ -15,7 +15,7 @@ find_package(glfw3 REQUIRED)
 endif()
 add_executable(Boiler ${SOURCES})
 set(IMGUI_DIR "${PROJECT_SOURCE_DIR}/include/imgui")
-
+add_subdirectory("${CMAKE_SOURCE_DIR}/include/glfw")
 target_sources(Boiler PRIVATE
     ${IMGUI_DIR}/imgui.cpp
 	    ${IMGUI_DIR}/imgui_draw.cpp
